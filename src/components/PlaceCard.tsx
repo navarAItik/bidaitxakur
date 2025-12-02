@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import { clsx } from 'clsx';
 import { Place } from '../types/place';
+import { useLanguage } from '../i18n/LanguageProvider';
+import type { TranslationKey } from '../i18n/translations';
 
 interface PlaceCardProps {
   place: Place;
@@ -9,6 +11,7 @@ interface PlaceCardProps {
 }
 
 export default function PlaceCard({ place, onHover, onLeave }: PlaceCardProps) {
+  const { t } = useLanguage();
   const gradient = place.sponsored
     ? 'from-amber-100/80 via-white to-white'
     : place.featured
@@ -17,7 +20,7 @@ export default function PlaceCard({ place, onHover, onLeave }: PlaceCardProps) {
 
   return (
     <article
-      className="relative overflow-hidden rounded-3xl border border-white/60 bg-white/80 p-6 shadow-soft card-glow transition hover:-translate-y-0.5"
+      className="relative overflow-hidden rounded-3xl border border-white/70 bg-white/85 p-6 shadow-soft card-glow transition hover:-translate-y-1"
       onMouseEnter={() => onHover?.(place)}
       onMouseLeave={() => onLeave?.()}
     >
@@ -26,11 +29,21 @@ export default function PlaceCard({ place, onHover, onLeave }: PlaceCardProps) {
         <div className="flex items-start justify-between gap-3">
           <div>
             <div className="flex flex-wrap items-center gap-2 mb-2 text-xs font-semibold">
-              {place.sponsored && <span className="px-3 py-0.5 rounded-full bg-amber-200/90 text-amber-900">Patrocinado</span>}
-              {place.featured && !place.sponsored && (
-                <span className="px-3 py-0.5 rounded-full bg-emerald-100 text-brand-dark">Destacado</span>
+              {place.sponsored && (
+                <span className="px-3 py-0.5 rounded-full bg-amber-200/90 text-amber-900">
+                  {t('place.badges.sponsored')}
+                </span>
               )}
-              {place.verified && <span className="px-3 py-0.5 rounded-full bg-sky-100 text-brand-dark">Verificado</span>}
+              {place.featured && !place.sponsored && (
+                <span className="px-3 py-0.5 rounded-full bg-emerald-100 text-brand-dark">
+                  {t('place.badges.featured')}
+                </span>
+              )}
+              {place.verified && (
+                <span className="px-3 py-0.5 rounded-full bg-sky-100 text-brand-dark">
+                  {t('place.badges.verified')}
+                </span>
+              )}
             </div>
             <h3 className="text-xl font-display font-semibold leading-tight">
               <Link to={`/lugar/${place.id}`} className="hover:underline decoration-brand-green/60">
@@ -38,16 +51,16 @@ export default function PlaceCard({ place, onHover, onLeave }: PlaceCardProps) {
               </Link>
             </h3>
             <p className="text-sm text-brand-dark/70 capitalize">
-              {place.town} · {place.category.replace(/-/g, ' ')}
+              {place.town} · {t(`categories.${place.category}` as TranslationKey)}
             </p>
           </div>
           <div className="text-right text-sm">
             {place.petPolicy.allowed ? (
               <span className="inline-flex items-center gap-1 text-brand-green font-semibold">
-                <span aria-hidden>🐾</span> Pet-friendly
+                <span aria-hidden>🐾</span> {t('place.status.petFriendly')}
               </span>
             ) : (
-              <span className="text-red-600 font-semibold">No admite perros</span>
+              <span className="text-red-600 font-semibold">{t('place.status.notPetFriendly')}</span>
             )}
             {place.petPolicy.notes && <p className="text-xs text-brand-dark/70 mt-0.5">{place.petPolicy.notes}</p>}
           </div>
@@ -64,16 +77,28 @@ export default function PlaceCard({ place, onHover, onLeave }: PlaceCardProps) {
         )}
         <div className="flex flex-wrap items-center justify-between gap-4 text-sm">
           <div className="space-y-1 text-brand-dark/80">
-            {place.phone && <p>Tel: {place.phone}</p>}
+            {place.phone && (
+              <p>
+                {t('place.labels.tel')} {place.phone}
+              </p>
+            )}
             {place.website && (
-              <a href={place.website} target="_blank" rel="noreferrer" className="text-brand-green font-semibold underline-offset-2 hover:underline">
-                Visitar web
+              <a
+                href={place.website}
+                target="_blank"
+                rel="noreferrer"
+                className="text-brand-green font-semibold underline-offset-2 hover:underline"
+              >
+                {t('place.actions.visit')}
               </a>
             )}
             {place.affiliate && (
               <p className="text-xs text-amber-800 max-w-xs">
-                Afiliado: <a className="underline" href={place.affiliate.url}>{place.affiliate.provider}</a>.{' '}
-                {place.affiliate.disclaimer}
+                {t('place.labels.affiliateShort')}:{' '}
+                <a className="underline" href={place.affiliate.url}>
+                  {place.affiliate.provider}
+                </a>
+                . {place.affiliate.disclaimer}
               </p>
             )}
           </div>
@@ -86,7 +111,7 @@ export default function PlaceCard({ place, onHover, onLeave }: PlaceCardProps) {
                 : 'bg-brand-dark text-white',
             )}
           >
-            Ver ficha
+            {t('place.actions.view')}
             <span aria-hidden>→</span>
           </Link>
         </div>

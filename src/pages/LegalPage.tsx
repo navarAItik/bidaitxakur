@@ -1,33 +1,28 @@
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
+import { useLanguage } from '../i18n/LanguageProvider';
+import type { TranslationKey } from '../i18n/translations';
 
-const content: Record<string, { title: string; body: string }> = {
-  privacidad: {
-    title: 'Política de privacidad',
-    body: 'No compartimos tus datos y solo usamos la newsletter para enviarte novedades pet-friendly.',
-  },
-  cookies: {
-    title: 'Política de cookies',
-    body: 'Usamos cookies analíticas básicas para mejorar la experiencia. Puedes desactivarlas en tu navegador.',
-  },
-  aviso: {
-    title: 'Aviso legal',
-    body: 'Patas Navarricas es una guía informativa. Verifica condiciones de cada lugar antes de acudir.',
-  },
+const sections: Record<string, { titleKey: TranslationKey; bodyKey: TranslationKey }> = {
+  privacidad: { titleKey: 'legal.privacy.title', bodyKey: 'legal.privacy.body' },
+  cookies: { titleKey: 'legal.cookies.title', bodyKey: 'legal.cookies.body' },
+  aviso: { titleKey: 'legal.notice.title', bodyKey: 'legal.notice.body' },
 };
 
 export default function LegalPage() {
   const { page } = useParams<{ page: string }>();
-  const current = page && content[page] ? content[page] : content.aviso;
+  const { t } = useLanguage();
+  const current = (page && sections[page]) || sections.aviso;
+  const title = t(current.titleKey);
 
   return (
-    <div className="mx-auto max-w-3xl px-4 sm:px-6 py-10 space-y-4">
+    <div className="page-shell max-w-3xl py-10 space-y-4">
       <Helmet>
-        <title>{current.title} | Patas Navarricas</title>
-        <meta name="description" content={`${current.title} de Patas Navarricas.`} />
+        <title>{title} | Patas Navarricas</title>
+        <meta name="description" content={`${title} · Patas Navarricas`} />
       </Helmet>
-      <h1 className="text-3xl font-bold">{current.title}</h1>
-      <p className="text-brand-dark/80 leading-relaxed">{current.body}</p>
+      <h1 className="text-3xl font-bold">{title}</h1>
+      <p className="text-brand-dark/80 leading-relaxed">{t(current.bodyKey)}</p>
     </div>
   );
 }

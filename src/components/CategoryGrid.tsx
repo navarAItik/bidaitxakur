@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom';
+import { useLanguage } from '../i18n/LanguageProvider';
+import type { TranslationKey } from '../i18n/translations';
 import { placesService } from '../services/placesService';
 
 export default function CategoryGrid() {
+  const { t } = useLanguage();
   const categories = placesService.categories();
   const accents = [
     'from-brand-sky/70 to-white',
@@ -22,12 +25,12 @@ export default function CategoryGrid() {
   };
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
       {categories.map((cat, index) => (
         <Link
           key={cat.slug}
           to={`/categoria/${cat.slug}`}
-          className="relative overflow-hidden rounded-2xl border border-white/60 bg-white/70 p-4 shadow-soft transition card-glow"
+          className="relative overflow-hidden rounded-3xl border border-white/70 bg-white/80 p-5 shadow-soft transition card-glow flex flex-col gap-2 justify-between"
         >
           <div
             className={`absolute inset-0 -z-10 opacity-90 bg-gradient-to-br ${
@@ -35,12 +38,14 @@ export default function CategoryGrid() {
             }`}
           />
           <div className="flex items-start justify-between gap-2">
-            <p className="font-semibold text-brand-dark">{cat.label}</p>
+            <p className="font-semibold text-brand-dark">
+              {t(`categories.${cat.slug}` as TranslationKey)}
+            </p>
             <span className="text-xl" aria-hidden>
               {icons[cat.slug] ?? '🐶'}
             </span>
           </div>
-          <p className="text-xs mt-1 text-brand-dark/70">Explorar</p>
+          <p className="text-xs mt-1 text-brand-dark/70 uppercase tracking-widest">{t('categoryCard.cta')}</p>
         </Link>
       ))}
     </div>
