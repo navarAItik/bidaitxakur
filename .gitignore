@@ -62,6 +62,8 @@ web_modules/
 # Output of 'npm pack'
 *.tgz
 *.zip
+vite.config.js
+vite.config.d.ts
 
 # Yarn Integrity file
 .yarn-integrity
