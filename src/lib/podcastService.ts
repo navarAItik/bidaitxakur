@@ -30,7 +30,7 @@ export async function fetchPodcastEpisodes(): Promise<PodcastEpisode[]> {
       title: 'Educación Canina Positiva',
       description: 'Técnicas efectivas de entrenamiento basadas en el refuerzo positivo y respeto al perro.',
       duration: '22:15',
-      audioUrl: 'https://example.com/hablemos-de-perros-educacion-canina.mp3',
+      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', // URL de ejemplo que permite CORS
       podcastName: 'Hablemos de Perros',
       date: '2024-01-15'
     },
@@ -39,7 +39,7 @@ export async function fetchPodcastEpisodes(): Promise<PodcastEpisode[]> {
       title: 'Comportamiento y Etología Canina',
       description: 'Entendiendo la conducta natural de los perros y su evolución.',
       duration: '25:40',
-      audioUrl: 'https://example.com/hablemos-de-perros-comportamiento.mp3',
+      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3', // URL de ejemplo que permite CORS
       podcastName: 'Hablemos de Perros',
       date: '2024-01-08'
     },
@@ -48,7 +48,7 @@ export async function fetchPodcastEpisodes(): Promise<PodcastEpisode[]> {
       title: 'El Lenguaje Corporal de los Perros',
       description: 'Cómo interpretar las señales de comunicación canina para mejorar la relación.',
       duration: '18:42',
-      audioUrl: 'https://example.com/perros-by-pat-lenguaje-corporal.mp3',
+      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3', // URL de ejemplo que permite CORS
       podcastName: 'Perros by PAT',
       date: '2024-01-10'
     },
@@ -57,7 +57,7 @@ export async function fetchPodcastEpisodes(): Promise<PodcastEpisode[]> {
       title: 'Crianza Científica de Perros',
       description: 'Basado en evidencia científica sobre crianza y educación canina.',
       duration: '21:30',
-      audioUrl: 'https://example.com/perros-by-pat-crianza-cientifica.mp3',
+      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3', // URL de ejemplo que permite CORS
       podcastName: 'Perros by PAT',
       date: '2024-01-03'
     },
@@ -66,7 +66,7 @@ export async function fetchPodcastEpisodes(): Promise<PodcastEpisode[]> {
       title: 'Conversaciones con Expertos',
       description: 'Entrevistas a profesionales del mundo canino sobre diversos temas.',
       duration: '25:30',
-      audioUrl: 'https://example.com/pongamos-que-hablo-expertos.mp3',
+      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3', // URL de ejemplo que permite CORS
       podcastName: 'Pongamos que Hablo de Perros',
       date: '2024-01-05'
     },
@@ -75,7 +75,7 @@ export async function fetchPodcastEpisodes(): Promise<PodcastEpisode[]> {
       title: 'Adopción Responsable',
       description: 'Consideraciones importantes al adoptar un perro rescatado.',
       duration: '20:18',
-      audioUrl: 'https://example.com/amores-de-garra-adopcion.mp3',
+      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3', // URL de ejemplo que permite CORS
       podcastName: 'Amores de garra',
       date: '2024-01-01'
     },
@@ -84,7 +84,7 @@ export async function fetchPodcastEpisodes(): Promise<PodcastEpisode[]> {
       title: 'Bienestar Animal en Viajes',
       description: 'Cómo garantizar el bienestar de tu perro durante los desplazamientos.',
       duration: '19:55',
-      audioUrl: 'https://example.com/perros-bienestar-viajes.mp3',
+      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3', // URL de ejemplo que permite CORS
       podcastName: 'PERROS',
       date: '2023-12-28'
     }
