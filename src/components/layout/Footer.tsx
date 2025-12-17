@@ -1,6 +1,9 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
-import { REGION_DATA, CATEGORIES } from '@/lib/constants';
+import { REGION_DATA, CATEGORIES, type CategorySlug } from '@/lib/constants';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const socialLinks = [
   { label: 'Instagram', href: 'https://instagram.com/huellasdelnorte' },
@@ -11,6 +14,12 @@ const socialLinks = [
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const {
+    translations: {
+      nav,
+      home: { categoriesSection },
+    },
+  } = useLanguage();
 
   return (
     <footer className="bg-slate-950 text-slate-100">
@@ -24,7 +33,7 @@ export default function Footer() {
             </p>
           </div>
           <div>
-            <p className="text-xs uppercase tracking-wide text-slate-400">Regiones</p>
+            <p className="text-xs uppercase tracking-wide text-slate-400">{nav.regions}</p>
             <ul className="mt-3 space-y-2 text-sm text-slate-300">
               {REGION_DATA.filter((region) => region.slug !== 'norte').map((region) => (
                 <li key={region.slug}>
@@ -36,12 +45,12 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <p className="text-xs uppercase tracking-wide text-slate-400">Categorías</p>
+            <p className="text-xs uppercase tracking-wide text-slate-400">{nav.categories}</p>
             <ul className="mt-3 space-y-2 text-sm text-slate-300">
               {CATEGORIES.map((category) => (
                 <li key={category.slug}>
                   <Link href={`/norte/${category.slug}`} className="hover:text-white">
-                    {category.label}
+                    {categoriesSection.cards[category.slug as CategorySlug]?.label ?? category.label}
                   </Link>
                 </li>
               ))}

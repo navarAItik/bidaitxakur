@@ -1,8 +1,11 @@
+'use client';
+
 import Link from 'next/link';
-import { CATEGORIES } from '@/lib/constants';
+import type { CategorySlug } from '@/lib/constants';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface CategoryCardProps {
-  slug: string;
+  slug: CategorySlug;
 }
 
 const COLORS: Record<string, { bg: string; text: string }> = {
@@ -17,18 +20,24 @@ const COLORS: Record<string, { bg: string; text: string }> = {
 };
 
 export default function CategoryCard({ slug }: CategoryCardProps) {
-  const category = CATEGORIES.find((item) => item.slug === slug);
-  if (!category) return null;
-  const colors = COLORS[category.slug] ?? { bg: 'bg-slate-100', text: 'text-slate-700' };
+  const {
+    translations: {
+      home: { categoriesSection },
+    },
+  } = useLanguage();
+
+  const copy = categoriesSection.cards[slug];
+  if (!copy) return null;
+  const colors = COLORS[slug] ?? { bg: 'bg-slate-100', text: 'text-slate-700' };
 
   return (
     <Link
       href={`/norte/${category.slug}`}
       className={`flex flex-col gap-3 rounded-3xl border border-transparent bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:border-primary-100 hover:shadow-card ${colors.bg}`}
     >
-      <p className={`text-sm font-semibold uppercase ${colors.text}`}>{category.label}</p>
-      <p className="text-sm text-slate-600">{category.description}</p>
-      <span className="text-xs font-semibold uppercase text-slate-500">Ver listado →</span>
+      <p className={`text-sm font-semibold uppercase ${colors.text}`}>{copy.label}</p>
+      <p className="text-sm text-slate-600">{copy.description}</p>
+      <span className="text-xs font-semibold uppercase text-slate-500">{categoriesSection.cardCta}</span>
     </Link>
   );
 }

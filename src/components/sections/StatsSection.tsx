@@ -1,17 +1,16 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-
-const stats = [
-  { label: 'Negocios verificados', value: 218, suffix: '+', color: 'text-emerald-500' },
-  { label: 'Filtros expertos', value: 52, suffix: '+', color: 'text-sky-400' },
-  { label: 'Entrevistas legales', value: 140, suffix: '+', color: 'text-amber-400' },
-  { label: 'Usuarios en lista espera', value: 2800, suffix: '+', color: 'text-fuchsia-400' },
-];
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function StatsSection() {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
+  const {
+    translations: {
+      home: { stats },
+    },
+  } = useLanguage();
 
   useEffect(() => {
     const observer = new IntersectionObserver(

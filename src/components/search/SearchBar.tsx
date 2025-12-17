@@ -2,7 +2,8 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { REGIONS, CATEGORIES } from '@/lib/constants';
+import { REGIONS, CATEGORIES, type CategorySlug } from '@/lib/constants';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface SearchBarProps {
   variant?: 'hero' | 'header';
@@ -13,6 +14,11 @@ export default function SearchBar({ variant = 'hero' }: SearchBarProps) {
   const [region, setRegion] = useState<string>('');
   const [category, setCategory] = useState<string>('');
   const [query, setQuery] = useState('');
+  const {
+    translations: {
+      home: { search },
+    },
+  } = useLanguage();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -32,7 +38,7 @@ export default function SearchBar({ variant = 'hero' }: SearchBarProps) {
     >
       <input
         type="text"
-        placeholder="Busca un lugar, servicio o palabra clave"
+        placeholder={search.placeholder}
         className="rounded-xl border border-slate-200 px-4 py-3 text-sm text-slate-700 focus:border-primary-400 focus:outline-none"
         value={query}
         onChange={(event) => setQuery(event.target.value)}
@@ -42,7 +48,7 @@ export default function SearchBar({ variant = 'hero' }: SearchBarProps) {
         value={region}
         onChange={(event) => setRegion(event.target.value)}
       >
-        <option value="">Todas las regiones</option>
+        <option value="">{search.allRegions}</option>
         {REGIONS.map((slug) => (
           <option key={slug} value={slug}>
             {slug}
@@ -55,10 +61,10 @@ export default function SearchBar({ variant = 'hero' }: SearchBarProps) {
           value={category}
           onChange={(event) => setCategory(event.target.value)}
         >
-          <option value="">Todas las categorías</option>
+          <option value="">{search.allCategories}</option>
           {CATEGORIES.map((cat) => (
             <option key={cat.slug} value={cat.slug}>
-              {cat.label}
+              {search.categories[cat.slug as CategorySlug]}
             </option>
           ))}
         </select>
@@ -66,7 +72,7 @@ export default function SearchBar({ variant = 'hero' }: SearchBarProps) {
           type="submit"
           className="rounded-xl bg-primary-600 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-primary-500/30"
         >
-          Buscar
+          {search.submitLabel}
         </button>
       </div>
     </form>

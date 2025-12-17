@@ -4,9 +4,15 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { NAV_LINKS, REGION_DATA } from '@/lib/constants';
+import { LANGUAGES } from '@/lib/i18n';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
+  const { language, setLanguage, translations } = useLanguage();
+  const { nav, ui } = translations;
+  const activeLanguageLabel = LANGUAGES.find((lang) => lang.code === language)?.label ?? language.toUpperCase();
 
   return (
     <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/90 backdrop-blur">
@@ -17,12 +23,12 @@ export default function Header() {
         <nav className="hidden items-center gap-6 text-sm font-medium text-slate-700 lg:flex">
           {NAV_LINKS.map((link) => (
             <a key={link.href} href={link.href} className="hover:text-primary-600">
-              {link.label}
+              {nav[link.key]}
             </a>
           ))}
           <div className="group relative">
             <button className="flex items-center gap-1 hover:text-primary-600">
-              Regiones
+              {nav.regions}
               <span aria-hidden>▾</span>
             </button>
             <div className="invisible absolute right-0 top-full mt-2 min-w-[280px] rounded-2xl border border-slate-200 bg-white p-4 text-left shadow-card opacity-0 transition group-hover:visible group-hover:opacity-100">
@@ -41,13 +47,42 @@ export default function Header() {
               </div>
             </div>
           </div>
+          <div className="relative">
+            <button
+              className="flex items-center gap-2 rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold uppercase tracking-wide hover:border-primary-300 hover:text-primary-600"
+              onClick={() => setLanguageMenuOpen((prev) => !prev)}
+              aria-haspopup="true"
+              aria-expanded={languageMenuOpen}
+            >
+              {activeLanguageLabel}
+              <span aria-hidden>▾</span>
+            </button>
+            {languageMenuOpen && (
+              <div className="absolute right-0 top-full mt-2 w-32 rounded-2xl border border-slate-200 bg-white p-2 text-sm shadow-card">
+                {LANGUAGES.map((lang) => (
+                  <button
+                    key={lang.code}
+                    onClick={() => {
+                      setLanguage(lang.code);
+                      setLanguageMenuOpen(false);
+                    }}
+                    className={`w-full rounded-xl px-3 py-2 text-left hover:bg-primary-50 ${
+                      language === lang.code ? 'text-primary-600' : 'text-slate-600'
+                    }`}
+                  >
+                    {lang.name}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
         </nav>
         <div className="hidden lg:flex">
           <Link
             href="/alta-negocio"
             className="rounded-full bg-primary-600 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-primary-600/30"
           >
-            Dar de alta mi negocio
+            {nav.addBusiness}
           </Link>
         </div>
         <button
@@ -63,7 +98,7 @@ export default function Header() {
           <div className="flex flex-col gap-3 text-sm text-slate-700">
             {NAV_LINKS.map((link) => (
               <a key={link.href} href={link.href} className="rounded-lg px-3 py-2 hover:bg-slate-100">
-                {link.label}
+                {nav[link.key]}
               </a>
             ))}
             {REGION_DATA.filter((region) => region.slug !== 'norte').map((region) => (
@@ -71,6 +106,24 @@ export default function Header() {
                 {region.name}
               </Link>
             ))}
+            <div className="rounded-lg border border-slate-200 p-3">
+              <p className="text-xs uppercase tracking-wide text-slate-500">{ui.languageLabel}</p>
+              <div className="mt-2 flex gap-2">
+                {LANGUAGES.map((lang) => (
+                  <button
+                    key={lang.code}
+                    onClick={() => setLanguage(lang.code)}
+                    className={`flex-1 rounded-full px-3 py-2 text-sm font-semibold ${
+                      language === lang.code
+                        ? 'bg-primary-600 text-white'
+                        : 'bg-slate-100 text-slate-700'
+                    }`}
+                  >
+                    {lang.label}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       )}

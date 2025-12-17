@@ -1,10 +1,8 @@
 import { notFound } from 'next/navigation';
-import { REGION_DATA, CATEGORIES, BUSINESS_FILTERS, type RegionSlug, type CategorySlug } from '@/lib/constants';
+import { REGION_DATA, CATEGORIES, type RegionSlug, type CategorySlug } from '@/lib/constants';
 import { getCategoryMetadata } from '@/lib/seo';
-import BusinessCard from '@/components/business/BusinessCard';
-import FilterSidebar from '@/components/search/FilterSidebar';
-import SearchBar from '@/components/search/SearchBar';
 import type { Business } from '@/types/business';
+import CategoryPageContent from '@/components/pages/CategoryPageContent';
 
 interface Params {
   params: { region: RegionSlug; category: CategorySlug };
@@ -57,27 +55,13 @@ export default function CategoryPage({ params }: Params) {
   return (
     <div className="bg-slate-50 py-12">
       <div className="container-page space-y-8">
-        <header className="space-y-2">
-          <p className="text-sm uppercase tracking-wide text-primary-500">
-            {region.name} / {category.label}
-          </p>
-          <h1 className="text-3xl font-semibold text-slate-900">
-            {category.label} en {region.name}
-          </h1>
-          <p className="text-slate-600">{category.description}</p>
-        </header>
-        <SearchBar variant="header" />
-        <div className="grid gap-6 md:grid-cols-[280px_1fr]">
-          <FilterSidebar category={category.slug as keyof typeof BUSINESS_FILTERS | 'default'} />
-          <div className="grid gap-6 md:grid-cols-2">
-            {businesses.length === 0 && (
-              <p className="text-sm text-slate-500">Estamos validando nuevos negocios en esta categoría.</p>
-            )}
-            {businesses.map((business) => (
-              <BusinessCard key={business.id} business={business} />
-            ))}
-          </div>
-        </div>
+        <CategoryPageContent
+          regionName={region.name}
+          categoryKey={category.slug}
+          categoryLabel={category.label}
+          categoryDescription={category.description}
+          businesses={businesses}
+        />
       </div>
     </div>
   );

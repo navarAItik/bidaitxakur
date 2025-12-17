@@ -1,6 +1,9 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { REGION_DATA } from '@/lib/constants';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface RegionCardProps {
   slug: string;
@@ -8,6 +11,11 @@ interface RegionCardProps {
 
 export default function RegionCard({ slug }: RegionCardProps) {
   const region = REGION_DATA.find((item) => item.slug === slug);
+  const {
+    translations: {
+      home: { regionsSection },
+    },
+  } = useLanguage();
   if (!region) return null;
 
   const fallbackImage = 'https://images.unsplash.com/photo-1500534623283-312aade485b7';
@@ -23,12 +31,14 @@ export default function RegionCard({ slug }: RegionCardProps) {
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
         <div className="absolute bottom-3 left-3">
           <p className="text-sm font-semibold text-white">{region.name}</p>
-          <p className="text-xs text-slate-200">{region.dogOwners.toLocaleString()} dueños de perros</p>
+          <p className="text-xs text-slate-200">
+            {region.dogOwners.toLocaleString()} {regionsSection.ownersLabel}
+          </p>
         </div>
       </div>
       <div className="space-y-3 p-4 text-sm text-slate-600">
         <p>{region.description}</p>
-        <p className="text-xs font-semibold uppercase text-primary-500">Ver guía completa →</p>
+        <p className="text-xs font-semibold uppercase text-primary-500">{regionsSection.guideCta}</p>
       </div>
     </Link>
   );

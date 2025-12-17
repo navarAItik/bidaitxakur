@@ -8,6 +8,10 @@ const nextConfig = {
       },
     ],
   },
+  generateBuildId: async () => {
+    // You can, for example, get the latest git commit hash here
+    return 'build-' + Date.now()
+  },
 };
 
-export default nextConfig;
+module.exports = nextConfig;

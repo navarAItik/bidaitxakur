@@ -88,14 +88,6 @@ export const CATEGORIES = [
 
 export type CategorySlug = (typeof CATEGORIES)[number]['slug'];
 
-export const TRANSPORT_MODES = [
-  { slug: 'vuelos', label: 'Vuelos con perro', description: 'Políticas de Iberia, Air Europa, Vueling y Air Nostrum.' },
-  { slug: 'autobus', label: 'Autobús', description: 'Condiciones de ALSA, Avanza y compañías regionales.' },
-  { slug: 'tren', label: 'Tren y media distancia', description: 'Normativa Renfe y OUIGO con mascotas de hasta 40 cm.' },
-  { slug: 'cercanias', label: 'Cercanías/Metro', description: 'Reglamentos por provincia y horarios recomendados.' },
-  { slug: 'coches', label: 'Coches de alquiler', description: 'Empresas que permiten mascotas y coberturas de limpieza.' },
-] as const;
-
 export const FEATURE_FLAGS = {
   enableFirebase: true,
   enableMapbox: false,
@@ -103,11 +95,10 @@ export const FEATURE_FLAGS = {
 };
 
 export const NAV_LINKS = [
-  { label: 'Regiones', href: '#regiones' },
-  { label: 'Categorías', href: '#categorias' },
-  { label: 'Blog', href: '/blog' },
-  { label: 'Alta negocios', href: '/alta-negocio' },
-];
+  { key: 'categories', href: '#categorias' },
+  { key: 'blog', href: '/blog' },
+  { key: 'addBusiness', href: '/alta-negocio' },
+] as const;
 
 export const BUSINESS_FILTERS = {
   alojamiento: ['vallado-certificado', 'sin-suplmento', 'sin-limite-peso'],
@@ -116,15 +107,72 @@ export const BUSINESS_FILTERS = {
   servicios: ['cuidadores', 'guarderias', 'adiestradores'],
 };
 
-export const TRUST_BADGES = [
-  { label: 'Verificado 100%', description: 'Contactamos con cada negocio antes de publicarlo.' },
-  { label: 'Seguro y legal', description: 'Normativa regional y Real Decreto 1021/2022.' },
-  { label: '+50 filtros expertos', description: 'Casas valladas, suplementos, límites de peso y más.' },
-  { label: 'Equipo local', description: 'Exploramos el norte cada mes con nuestras mascotas.' },
-];
-
 export const HERO_IMAGES = [
   'https://images.unsplash.com/photo-1507146426996-ef05306b995a',
   'https://images.unsplash.com/photo-1500534623283-312aade485b7',
   'https://images.unsplash.com/photo-1508672019048-805c876b67e2',
 ];
+
+export const JOURNEY_STEPS = [
+  {
+    id: 'descubre',
+    badge: 'Paso 1',
+    title: 'Selecciona región y necesidades',
+    description: 'Aplica filtros legales, vallado certificado o transporte desde el primer clic.',
+    bullets: ['Mapas hiperlocales', 'Alertas de normativa en tiempo real', 'Listas guardadas por viaje'],
+  },
+  {
+    id: 'verifica',
+    badge: 'Paso 2',
+    title: 'Compara negocios verificados',
+    description: 'Cada ficha incluye evidencias fotográficas, extras pet friendly y reseñas reales.',
+    bullets: ['Checklist de seguridad', 'Política pet friendly detallada', 'Integración con reseñas de la comunidad'],
+  },
+  {
+    id: 'reserva',
+    badge: 'Paso 3',
+    title: 'Reserva o solicita acompañamiento',
+    description: 'Contacta con anfitriones y servicios críticos con contexto legal y rutas sugeridas.',
+    bullets: ['Conexión con marketplace', 'Soporte humano experto', 'Plan de viaje descargable'],
+  },
+] as const;
+
+export const MARKETPLACE_METRICS = [
+  { label: 'Negocios verificados', value: '340+', helper: '+18 añadidos en noviembre' },
+  { label: 'Filtros de seguridad', value: '55', helper: 'Actualizados con normativa 2024' },
+  { label: 'Expertos locales', value: '12', helper: 'Exploradores residentes en cada región' },
+  { label: 'Solicitudes guiadas', value: '1.200', helper: 'Planes personalizados en beta privada' },
+] as const;
+
+export const TRANSPORT_NETWORK = [
+  {
+    mode: 'vuelos',
+    coverage: '15 aerolíneas con políticas auditadas',
+    highlights: ['Cabina y bodega detalladas', 'Docs de viaje en PDF'],
+    status: 'Actualización mensual',
+  },
+  {
+    mode: 'tren',
+    coverage: 'Renfe, OUIGO y FEVE con límite actualizado',
+    highlights: ['Simulador de tarifa', 'Alertas 24h antes'],
+    status: 'Cobertura total norte',
+  },
+  {
+    mode: 'autobus',
+    coverage: '12 operadores regionales + ALSA/Avanza',
+    highlights: ['Rutas con paradas dog friendly', 'Contactos locales'],
+    status: 'Piloto abierto',
+  },
+  {
+    mode: 'cercanias',
+    coverage: 'Metro Bilbao, Euskotren y redes urbanas',
+    highlights: ['Horarios recomendados', 'Mapa accesos'],
+    status: 'Datos horarios vivos',
+  },
+  {
+    mode: 'coches',
+    coverage: '9 empresas de alquiler sin sobrecoste oculto',
+    highlights: ['Kit limpieza verificado', 'Coberturas por peso'],
+    status: 'Integración con seguros Q1',
+  },
+] as const;
