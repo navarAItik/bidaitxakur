@@ -181,6 +181,11 @@ type Translation = {
   };
   home: HomeTranslations;
   pages: PagesTranslations;
+  travelerStories: {
+    badge: string;
+    title: string;
+    description: string;
+  };
 };
 
 type DeepPartial<T> = {
@@ -193,7 +198,7 @@ type DeepPartial<T> = {
 
 const baseHome: HomeTranslations = {
   hero: {
-    badge: 'GPS con aviso de seguridad',
+    badge: 'Huella a Huella, el Norte es Nuestro',
     title: 'Viaja con tu perro por el norte con datos verificados, rutas y transporte claro',
     description:
       'Alojamientos con terreno vallado certificado, normativa legal por provincia, transporte completo y marketplace de servicios pet friendly.',
@@ -279,27 +284,27 @@ const baseHome: HomeTranslations = {
     ownersLabel: 'dueños de perros',
   },
   journey: {
-    badge: 'Metodología',
-    title: 'Viajes seguros en tres pasos',
-    description: 'Guiamos a cada familia perruna desde la inspiración hasta la reserva con evidencia verificada.',
+    badge: 'Experiencia compartida',
+    title: 'Vive aventuras inolvidables con tu compañero peludo',
+    description: 'Transformamos tu viaje con mascota en una experiencia emocional y segura, paso a paso.',
     steps: [
       {
-        badge: 'Paso 1',
-        title: 'Selecciona región y necesidades',
-        description: 'Aplica filtros legales o vallados certificados desde el primer clic.',
-        bullets: ['Mapas hiperlocales', 'Alertas de normativa en tiempo real', 'Listas guardadas por viaje'],
+        badge: 'Inspírate',
+        title: 'Descubre historias de viajeros',
+        description: 'Lee testimonios reales y encuentra la inspiración para tu próxima aventura con tu perro.',
+        bullets: ['Historias emocionales', 'Recomendaciones auténticas', 'Conexión con otros dueños'],
       },
       {
-        badge: 'Paso 2',
-        title: 'Compara negocios verificados',
-        description: 'Cada ficha incluye evidencias fotográficas, extras pet friendly y reseñas reales.',
-        bullets: ['Checklist de seguridad', 'Política pet friendly detallada', 'Integración con reseñas'],
+        badge: 'Planifica',
+        title: 'Explora y selecciona con cuidado',
+        description: 'Usa nuestros filtros especializados y descubre los mejores destinos pet friendly del norte.',
+        bullets: ['Mapas hiperlocales', 'Avisos de normativa en tiempo real', 'Rutas recomendadas'],
       },
       {
-        badge: 'Paso 3',
-        title: 'Reserva o solicita acompañamiento',
-        description: 'Contacta con anfitriones y servicios críticos con contexto legal y rutas sugeridas.',
-        bullets: ['Marketplace conectado', 'Soporte humano experto', 'Plan de viaje descargable'],
+        badge: 'Vive',
+        title: 'Disfruta la experiencia compartida',
+        description: 'Conecta con el entorno natural y vive momentos únicos con tu mascota de la forma más responsable.',
+        bullets: ['Consejos prácticos', 'Recomendaciones de seguridad', 'Normativas actualizadas'],
       },
     ],
   },
@@ -432,6 +437,11 @@ const baseHome: HomeTranslations = {
           'Ofrecemos planes de suscripción desde 49 €/mes con badge verificado, campañas SEO locales y aparición prioritaria en el mapa.',
       },
     ],
+  },
+  travelerStories: {
+    badge: 'Historias que inspiran',
+    title: 'Historias de Viajeros Pet Friendly',
+    description: 'Conoce experiencias reales de viajeros con sus mascotas en el norte de España',
   },
 };
 
@@ -640,27 +650,27 @@ export const TRANSLATIONS: Record<LanguageCode, Translation> = {
         ownersLabel: 'propietarios de cans',
       },
       journey: {
-        badge: 'Metodoloxía',
-        title: 'Viaxes seguros en tres pasos',
-        description: 'Acompañamos dende a inspiración ata a reserva cunha guía clara.',
+        badge: 'Experiencia compartida',
+        title: 'Vive aventuras inolvidables co teu compañeiro peludo',
+        description: 'Transformamos o teu viaxe con mascota nunha experiencia emocional e segura, paso a paso.',
         steps: [
           {
-            badge: 'Paso 1',
-            title: 'Elixe rexión e filtros',
-            description: 'Activa filtros legais e de valado antes de comezar.',
-            bullets: ['Mapas hiperlocais', 'Alertas legais', 'Listas por viaxe'],
+            badge: 'Inspírate',
+            title: 'Descubre historias de viaxeiros',
+            description: 'Le os testemuños reais e atopa a inspiración para a túa próxima aventura co teu can.',
+            bullets: ['Historias emocionais', 'Recomendacións auténticas', 'Conexión con outros donos'],
           },
           {
-            badge: 'Paso 2',
-            title: 'Compara negocios verificados',
-            description: 'Mostramos evidencias fotográficas e reseñas reais.',
-            bullets: ['Checklist de seguridade', 'Políticas detalladas', 'Opinións da comunidade'],
+            badge: 'Planifica',
+            title: 'Explora e selecciona con coidado',
+            description: 'Usa os nosos filtros especializados e descubre os mellores destinos pet friendly do norte.',
+            bullets: ['Mapas hiperlocais', 'Avisos de normativa en tempo real', 'Rutas recomendadas'],
           },
           {
-            badge: 'Paso 3',
-            title: 'Reserva con contexto',
-            description: 'Contacto directo e soporte humano en galego.',
-            bullets: ['Marketplace conectado', 'Soporte experto', 'Plan descargable'],
+            badge: 'Vive',
+            title: 'Disfruta a experiencia compartida',
+            description: 'Conecta co contorno natural e vive momentos únicos coa túa mascota da forma máis responsable.',
+            bullets: ['Consellos prácticos', 'Recomendacións de seguridade', 'Normativas actualizadas'],
           },
         ],
       },
@@ -875,6 +885,31 @@ export const TRANSLATIONS: Record<LanguageCode, Translation> = {
         prev: 'Anterior',
         next: 'Siguiente',
       },
+      journey: {
+        badge: 'Esperiencia compartida',
+        title: 'Vive aventures inolvidables col to compañeru peludu',
+        description: 'Transformamos el to viaxe con mascota nuna esperiencia emocional y segura, pasu a pasu.',
+        steps: [
+          {
+            badge: 'Inspírate',
+            title: 'Descubre hestories de viaxeros',
+            description: 'Llei testimonios reales y atopa la inspiración pa la to próxima aventura col to perro.',
+            bullets: ['Hestories emocionales', 'Recomendaciones auténtiques', 'Conexón con otros dueños'],
+          },
+          {
+            badge: 'Planifica',
+            title: 'Esplora y seleiciona con cuyu',
+            description: 'Usa los nuesos filtros especializaos y descubre los meyores destinos pet friendly del norte.',
+            bullets: ['Mapes hiperlocales', 'Avisos de normativa en tiempu real', 'Rutes recomendaes'],
+          },
+          {
+            badge: 'Vive',
+            title: 'Disfruta la esperiencia compartida',
+            description: 'Coneuta col entornu natural y vive momentos únicos cola to mascota de la forma más responsable.',
+            bullets: ['Conseyos práuticos', 'Recomendaciones de seguridá', 'Normatives actualizaes'],
+          },
+        ],
+      },
       insights: {
         badge: 'Datos accionables',
         title: 'Base viva del sector pet friendly nel norte',
@@ -1067,6 +1102,31 @@ export const TRANSLATIONS: Record<LanguageCode, Translation> = {
         prev: 'Aurrekoa',
         next: 'Hurrengoa',
       },
+      journey: {
+        badge: 'Elkarrekin bidaia',
+        title: 'Bidaia gogoragarriak bizitu zure lagun peluduekin',
+        description: 'Zure maskotarekin bidaia esperientzia emozional eta seguru bihurtzen dugu, pausoz pauso.',
+        steps: [
+          {
+            badge: 'Mugitu',
+            title: 'Topatu bidaialarien istorioak',
+            description: 'Irakurri benetako frogamenak eta aurkitu zure hurrengo txakur bidean inspirazioa.',
+            bullets: ['Historia emozionalak', 'Gomendio autentikoak', 'Beste jabeekin konexioa'],
+          },
+          {
+            badge: 'Plangintza',
+            title: 'Arakatu eta hautatu kontuz',
+            description: 'Erabili gure iragazki bereziak eta aurkitu iparraldeko oneneko leku pet friendlyak.',
+            bullets: ['Mapa lokalak', 'Lege ohartarazpenak denbora errealean', 'Gomendatutako ibilbideak'],
+          },
+          {
+            badge: 'Bizitu',
+            title: 'Goza elkarrekin bizi den esperientziatik',
+            description: 'Lotu ingurune naturalarekin eta bizitu unikoak zure maskotarekin modu erresponsiblean.',
+            bullets: ['Argibide praktikoak', 'Segurtasun gomendioak', 'Eguneratutako arauak'],
+          },
+        ],
+      },
       cta: {
         badge: 'Beta pribatua Q1',
         title: 'Iparraldeko pet friendly negozioa duzu?',
@@ -1107,6 +1167,13 @@ export const TRANSLATIONS: Record<LanguageCode, Translation> = {
               '49 €/hilabetetik aurrera planak ditugu: badge egiaztatua, tokiko SEO kanpainak eta mapa berrian posizio lehenetsia.',
           },
         ],
+      },
+    }),
+    home: mergeHome({
+      travelerStories: {
+        badge: 'Inspirazioa ematen duten istorioak',
+        title: 'Maskotekin bidaia egiten dutenentzako istorioak',
+        description: 'Ezagutu iparraldeko zain bidaien esperientzia autentikoak zure maskotarekin',
       },
     }),
     pages: mergePages({
@@ -1249,6 +1316,31 @@ export const TRANSLATIONS: Record<LanguageCode, Translation> = {
         prev: 'Précédent',
         next: 'Suivant',
       },
+      journey: {
+        badge: 'Expérience partagée',
+        title: 'Vivez des aventures inoubliables avec votre compagnon à quatre pattes',
+        description: 'Nous transformons votre voyage avec votre animal de compagnie en une expérience émotionnelle et sécurisée, étape par étape.',
+        steps: [
+          {
+            badge: 'Inspirez-vous',
+            title: 'Découvrez les histoires des voyageurs',
+            description: 'Lisez des témoignages authentiques et trouvez l\'inspiration pour votre prochaine aventure avec votre chien.',
+            bullets: ['Histoires émotionnelles', 'Recommandations authentiques', 'Connexion avec d\'autres propriétaires'],
+          },
+          {
+            badge: 'Planifiez',
+            title: 'Explorez et sélectionnez avec soin',
+            description: 'Utilisez nos filtres spécialisés et découvrez les meilleurs destinations pet friendly du nord.',
+            bullets: ['Cartes hyperlocales', 'Alertes réglementaires en temps réel', 'Itinéraires recommandés'],
+          },
+          {
+            badge: 'Vivez',
+            title: 'Profitez de l\'expérience partagée',
+            description: 'Connectez-vous avec l\'environnement naturel et vivez des moments uniques avec votre animal de compagnie de manière responsable.',
+            bullets: ['Conseils pratiques', 'Recommandations de sécurité', 'Réglementations mises à jour'],
+          },
+        ],
+      },
       cta: {
         badge: 'Beta privée Q1',
         title: 'Commerce pet friendly dans le Nord ?',
@@ -1289,6 +1381,13 @@ export const TRANSLATIONS: Record<LanguageCode, Translation> = {
               'Formules dès 49 €/mois avec badge vérifié, campagnes SEO locales et priorité sur la carte.',
           },
         ],
+      },
+    }),
+    home: mergeHome({
+      travelerStories: {
+        badge: 'Histoires qui inspirent',
+        title: 'Histoires de voyageurs avec animaux de compagnie',
+        description: 'Découvrez des expériences authentiques de voyageurs avec leurs animaux dans le nord de l\'Espagne',
       },
     }),
     pages: mergePages({
@@ -1472,27 +1571,27 @@ export const TRANSLATIONS: Record<LanguageCode, Translation> = {
         ownersLabel: 'dog owners',
       },
       journey: {
-        badge: 'Methodology',
-        title: 'Three steps to a safe trip',
-        description: 'From inspiration to booking with verified evidence.',
+        badge: 'Shared experience',
+        title: 'Unforgettable adventures with your furry companion',
+        description: 'We transform your pet travel into an emotional and safe experience, step by step.',
         steps: [
           {
-            badge: 'Step 1',
-            title: 'Choose region & filters',
-            description: 'Activate legal or fenced filters from the start.',
-            bullets: ['Hyperlocal maps', 'Live legal alerts', 'Trip lists'],
+            badge: 'Get inspired',
+            title: 'Discover traveler stories',
+            description: 'Read real testimonials and find inspiration for your next dog adventure.',
+            bullets: ['Emotional stories', 'Authentic recommendations', 'Connection with other owners'],
           },
           {
-            badge: 'Step 2',
-            title: 'Compare verified businesses',
-            description: 'Photo evidence, extras and real reviews in every card.',
-            bullets: ['Safety checklist', 'Pet policy details', 'Community feedback'],
+            badge: 'Plan',
+            title: 'Explore and select with care',
+            description: 'Use our specialized filters and discover the best pet friendly destinations in the north.',
+            bullets: ['Hyperlocal maps', 'Real-time legal alerts', 'Recommended routes'],
           },
           {
-            badge: 'Step 3',
-            title: 'Book with context',
-            description: 'Direct contact plus legal and routing help.',
-            bullets: ['Connected marketplace', 'Human experts', 'Downloadable plan'],
+            badge: 'Live',
+            title: 'Enjoy the shared experience',
+            description: 'Connect with the natural environment and enjoy unique moments with your pet responsibly.',
+            bullets: ['Practical tips', 'Safety recommendations', 'Updated regulations'],
           },
         ],
       },
