@@ -17,6 +17,7 @@ export default function Footer() {
   const {
     translations: {
       nav,
+      footer,
       home: { categoriesSection },
     },
   } = useLanguage();
@@ -27,10 +28,7 @@ export default function Footer() {
         <div className="grid gap-10 lg:grid-cols-4">
           <div className="space-y-4">
             <Image src="/logo-footer.svg" width={200} height={80} alt="Huellas del Norte" />
-            <p className="text-sm text-slate-400">
-              Tu GPS de seguridad para viajar con perro por el norte de España. Negocios verificados,
-              normativa legal y rutas creadas por un equipo que viaja con perro cada semana.
-            </p>
+            <p className="text-sm text-slate-400">{footer.description}</p>
           </div>
           <div>
             <p className="text-xs uppercase tracking-wide text-slate-400">{nav.regions}</p>
@@ -57,7 +55,7 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <p className="text-xs uppercase tracking-wide text-slate-400">Comunidad</p>
+            <p className="text-xs uppercase tracking-wide text-slate-400">{footer.communityLabel}</p>
             <ul className="mt-3 space-y-2 text-sm text-slate-300">
               {socialLinks.map((link) => (
                 <li key={link.label}>
@@ -67,9 +65,7 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-            <p className="mt-6 text-xs text-slate-500">
-              Aviso legal | Política de privacidad | Cookies
-            </p>
+            <p className="mt-6 text-xs text-slate-500">{footer.legal}</p>
           </div>
         </div>
         <div className="mt-10 border-t border-slate-800 pt-6 text-center text-xs text-slate-500">

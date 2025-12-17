@@ -92,6 +92,11 @@ type HomeTranslations = {
     primaryCta: string;
     secondaryCta: string;
   };
+  faq: {
+    title: string;
+    intro: string;
+    items: { question: string; answer: string }[];
+  };
   insights: {
     badge: string;
     title: string;
@@ -146,17 +151,33 @@ type PagesTranslations = {
     adoptions: string;
     missing: string;
   };
+  addBusiness: {
+    badge: string;
+    title: string;
+    description: string;
+    steps: { title: string; description: string }[];
+    contactTitle: string;
+    contactDescription: string;
+    primaryCta: string;
+    secondaryCta: string;
+  };
 };
 
 type Translation = {
   nav: {
     regions: string;
     categories: string;
+    map: string;
     blog: string;
     addBusiness: string;
   };
   ui: {
     languageLabel: string;
+  };
+  footer: {
+    description: string;
+    communityLabel: string;
+    legal: string;
   };
   home: HomeTranslations;
   pages: PagesTranslations;
@@ -391,6 +412,27 @@ const baseHome: HomeTranslations = {
     sourceLabel: 'Fuente',
     noSource: 'Pendiente',
   },
+  faq: {
+    title: 'Preguntas frecuentes',
+    intro: 'Resolvemos las dudas más habituales antes de abrir la beta en cada región.',
+    items: [
+      {
+        question: '¿Cómo verificáis que un alojamiento tiene terreno vallado?',
+        answer:
+          'Solicitamos vídeo del perímetro, contrato y verificación presencial o con dron. Solo entonces etiquetamos como “vallado certificado”.',
+      },
+      {
+        question: '¿Incluís transporte completo (vuelos + bus + tren)?',
+        answer:
+          'Sí. Auditamos las políticas de Iberia, Air Europa, ALSA, Renfe, Cercanías y compañías de alquiler para cada región.',
+      },
+      {
+        question: '¿Puede mi negocio destacar?',
+        answer:
+          'Ofrecemos planes de suscripción desde 49 €/mes con badge verificado, campañas SEO locales y aparición prioritaria en el mapa.',
+      },
+    ],
+  },
 };
 
 const basePages: PagesTranslations = {
@@ -450,6 +492,31 @@ const basePages: PagesTranslations = {
     adoptions: 'Listado de asociaciones con filtros transparentes.',
     missing: 'Publicaremos alertas verificadas por asociación.',
   },
+  addBusiness: {
+    badge: 'Alta de negocio',
+    title: 'Consigue ficha verificada y funnels cualificados',
+    description:
+      'Trabajamos con alojamientos vallados, servicios críticos, transporte y rutas oficiales en el norte de España. Así es el proceso:',
+    steps: [
+      {
+        title: '1. Auditoría express',
+        description: 'Validamos normativa, fotos y diferenciales en menos de 72h.',
+      },
+      {
+        title: '2. Producción de ficha',
+        description: 'Copy estratégico, checklist pet friendly y materiales descargables.',
+      },
+      {
+        title: '3. Lanzamiento y analítica',
+        description: 'Te damos visibilidad en home, mapa y campañas email con métricas cada mes.',
+      },
+    ],
+    contactTitle: 'Únete a la beta privada',
+    contactDescription:
+      'Completa el formulario y cuéntanos qué tipo de negocio tienes (alojamiento, transporte, servicios críticos, rutas guiadas). Respondemos en 48h.',
+    primaryCta: 'Solicitar verificación',
+    secondaryCta: 'Descargar dossier →',
+  },
 };
 
 export const BASE_BLOG_POSTS = basePages.blog.posts;
@@ -484,11 +551,18 @@ export const TRANSLATIONS: Record<LanguageCode, Translation> = {
     nav: {
       regions: 'Rexións',
       categories: 'Categorías',
+      map: 'Mapa',
       blog: 'Blog',
       addBusiness: 'Dar de alta o meu negocio',
     },
     ui: {
       languageLabel: 'Lingua',
+    },
+    footer: {
+      description:
+        'O teu GPS de seguridade para viaxar con can polo norte. Negocios verificados, normativa e rutas creadas por un equipo que viaxa con mascota cada semana.',
+      communityLabel: 'Comunidade',
+      legal: 'Aviso legal | Política de privacidade | Cookies',
     },
     home: mergeHome({
       hero: {
@@ -645,6 +719,27 @@ export const TRANSLATIONS: Record<LanguageCode, Translation> = {
         sourceLabel: 'Fonte',
         noSource: 'Pendente',
       },
+      faq: {
+        title: 'Preguntas frecuentes',
+        intro: 'Respostamos as dúbidas máis comúns antes de abrir cada beta rexional.',
+        items: [
+          {
+            question: 'Como verificades que un aloxamento ten terreo valado?',
+            answer:
+              'Pedimos vídeo do perímetro, contrato e unha visita ou revisión con dron antes de marcar como “valado certificado”.',
+          },
+          {
+            question: 'Incluís transporte completo (voos + bus + tren)?',
+            answer:
+              'Si. Auditamos Iberia, Air Europa, ALSA, Renfe, Cercanías e alugueiros para cada rexión.',
+          },
+          {
+            question: 'Pode o meu negocio destacar?',
+            answer:
+              'Ofrecemos plans dende 49 €/mes con badge verificado, campañas SEO locais e prioridade no mapa.',
+          },
+        ],
+      },
     }),
     pages: mergePages({
       blog: {
@@ -706,17 +801,46 @@ export const TRANSLATIONS: Record<LanguageCode, Translation> = {
         adoptions: 'Listado de asociacións con filtros transparentes.',
         missing: 'Publicaremos alertas verificadas por asociación.',
       },
+      addBusiness: {
+        badge: 'Alta de negocio',
+        title: 'Consigue ficha verificada e funnels cualificados',
+        description:
+          'Traballamos con aloxamentos valados, transporte e servizos críticos nas rexións do norte. Seguinte proceso:',
+        steps: [
+          { title: '1. Auditoría express', description: 'Validamos normativa, fotos e diferenzas en menos de 72h.' },
+          {
+            title: '2. Produción de ficha',
+            description: 'Copy estratéxico, checklist pet friendly e materiais descargables.',
+          },
+          {
+            title: '3. Lanzamento e analítica',
+            description: 'Visibilidade en home, mapa e campañas con métricas mensuais.',
+          },
+        ],
+        contactTitle: 'Únete á beta privada',
+        contactDescription:
+          'Envíanos o formulario indicando se es aloxamento, transporte ou servizo crítico. Respondemos en 48h.',
+        primaryCta: 'Solicitar verificación',
+        secondaryCta: 'Descargar dossier →',
+      },
     }),
   },
   ast: {
     nav: {
       regions: 'Rexones',
       categories: 'Categoríes',
+      map: 'Mapa',
       blog: 'Blog',
       addBusiness: "Dar d'alta'l mio negociu",
     },
     ui: {
       languageLabel: 'Llingua',
+    },
+    footer: {
+      description:
+        'El to GPS de seguridá pa viaxar col perru pel norte. Negocios verificaos, normativa y rutes creaes por un equipu que viaxa con mascota cada selmana.',
+      communityLabel: 'Comunidá',
+      legal: 'Avisu llegal | Política de privacidá | Cookies',
     },
     home: mergeHome({
       hero: {
@@ -763,6 +887,27 @@ export const TRANSLATIONS: Record<LanguageCode, Translation> = {
         categoryLabel: 'Categoría',
         sourceLabel: 'Fonte',
         noSource: 'Pendente',
+      },
+      faq: {
+        title: 'Cuestiones frecuentes',
+        intro: 'Resolvemos les entrugues más comunes enantes d’abrir la beta en cada rexón.',
+        items: [
+          {
+            question: '¿Cómo verificáis que un alloxamientu ta zarráu?',
+            answer:
+              'Pidimos vídeos, contratos y verificación presencial o con dron enantes de marcar como “vallao certificáu”.',
+          },
+          {
+            question: '¿Incluyís toles opciones de tresporte?',
+            answer:
+              'Sí: aerollínees, ALSA, Renfe, Cercaníes y alquileres con normes actualizaes por rexón.',
+          },
+          {
+            question: '¿Pue destacar el mio negociu?',
+            answer:
+              'Planes dende 49 €/mes con badge verificáu, campañas locales y posición prioritaria nel mapa.',
+          },
+        ],
       },
     }),
     pages: mergePages({
@@ -825,30 +970,69 @@ export const TRANSLATIONS: Record<LanguageCode, Translation> = {
         adoptions: 'Llistáu d\'asociaciones con filtros claros.',
         missing: 'Publicaremos alertes verificaes por asociación.',
       },
+      addBusiness: {
+        badge: 'Alta de negociu',
+        title: 'Consigue ficha verificá y funnels cualificáos',
+        description:
+          'Trabayamos con alloxamientos zarrados, servicios críticos y tresporte en toles rexones del norte.',
+        steps: [
+          {
+            title: '1. Auditoría express',
+            description: 'Validamos normativa, fotos y diferenciales en menos de 72h.',
+          },
+          {
+            title: '2. Producción de ficha',
+            description: 'Copy estratéxicu, checklist pet friendly y materiales descargables.',
+          },
+          {
+            title: '3. Llanzamientu y analítica',
+            description: 'Apaición en home, mapa y campañes con métrica mensual.',
+          },
+        ],
+        contactTitle: 'Únete a la beta privada',
+        contactDescription:
+          'Cumple\'l formulariu indicando si yes alloxamientu, tresporte o serviciu críticu. Respondemos en 48h.',
+        primaryCta: 'Solicitar verificación',
+        secondaryCta: 'Descargar dossier →',
+      },
     }),
   },
   es: {
     nav: {
       regions: 'Regiones',
       categories: 'Categorías',
+      map: 'Mapa',
       blog: 'Blog',
       addBusiness: 'Dar de alta mi negocio',
     },
-    ui: {
-      languageLabel: 'Idioma',
-    },
-    home: baseHome,
+  ui: {
+    languageLabel: 'Idioma',
+  },
+  footer: {
+    description:
+      'Tu GPS de seguridad para viajar con perro por el norte de España. Negocios verificados, normativa legal y rutas creadas por un equipo que viaja con perro cada semana.',
+    communityLabel: 'Comunidad',
+    legal: 'Aviso legal | Política de privacidad | Cookies',
+  },
+  home: baseHome,
     pages: mergePages(),
   },
   eu: {
     nav: {
       regions: 'Eskualdeak',
       categories: 'Kategoriak',
+      map: 'Mapa',
       blog: 'Bloga',
       addBusiness: 'Nire negozioa gehitu',
     },
     ui: {
       languageLabel: 'Hizkuntza',
+    },
+    footer: {
+      description:
+        'Zure segurtasun GPSa iparraldean txakurrarekin bidaiatzeko. Negozio egiaztatuak, araudia eta taldekideek sortutako ibilbideak.',
+      communityLabel: 'Komunitatea',
+      legal: 'Lege-oharra | Pribatutasun politika | Cookieak',
     },
     home: mergeHome({
       hero: {
@@ -902,6 +1086,27 @@ export const TRANSLATIONS: Record<LanguageCode, Translation> = {
         categoryLabel: 'Kategoria',
         sourceLabel: 'Iturria',
         noSource: 'Laster',
+      },
+      faq: {
+        title: 'Ohiko galderak',
+        intro: 'Beta hasi aurretik gehien errepikatzen diren zalantzak argitzen ditugu.',
+        items: [
+          {
+            question: 'Nola egiaztatzen duzue ostatu bat benetan hesituta dagoela?',
+            answer:
+              'Perimetroaren bideoa, kontratua eta bisita edo dron bidezko ikuskaritza eskatzen ditugu “vallado certificado” etiketa eman aurretik.',
+          },
+          {
+            question: 'Bidaiatzeko aukera guztiak estaltzen dituzue (hegaldiak, busa, trena)?',
+            answer:
+              'Bai. Iberia, Air Europa, ALSA, Renfe, Cercanías eta alokairuen politikak auditatu eta eguneratzen ditugu.',
+          },
+          {
+            question: 'Nire negozioa nabarmentzeko modurik badago?',
+            answer:
+              '49 €/hilabetetik aurrera planak ditugu: badge egiaztatua, tokiko SEO kanpainak eta mapa berrian posizio lehenetsia.',
+          },
+        ],
       },
     }),
     pages: mergePages({
@@ -965,17 +1170,46 @@ export const TRANSLATIONS: Record<LanguageCode, Translation> = {
         adoptions: 'Elkarte eta babesleen zerrenda, iragazki gardenekin.',
         missing: 'Elkarteek egiaztatutako alertak argitaratuko ditugu.',
       },
+      addBusiness: {
+        badge: 'Negozioa gehitu',
+        title: 'Fitxa egiaztatua eta funnel kualifikatuak',
+        description:
+          'Hesitutako ostatuak, zerbitzu kritikoak eta garraioa lantzen ditugu iparraldeko eskualde guztietan.',
+        steps: [
+          { title: '1. Auditori express', description: '72 ordutan araudia, materiala eta diferentzialak berrikusten ditugu.' },
+          {
+            title: '2. Fitxa ekoizpena',
+            description: 'Copy estrategikoa, checklist pet friendly eta deskargak prestatzen ditugu.',
+          },
+          {
+            title: '3. Abiaraztea eta analitika',
+            description: 'Hasiera, mapa eta kanpaina espezifikoetan agertzen zara hileko txostenarekin.',
+          },
+        ],
+        contactTitle: 'Batu beta pribatura',
+        contactDescription:
+          'Betetu formularioa eta esan zein motatako negozioa duzun (ostatua, garraioa, zerbitzu kritikoak). 48 ordutan erantzuten dugu.',
+        primaryCta: 'Balidazioa eskatu',
+        secondaryCta: 'Dossierra deskargatu →',
+      },
     }),
   },
   fr: {
     nav: {
       regions: 'Régions',
       categories: 'Catégories',
+      map: 'Carte',
       blog: 'Blog',
       addBusiness: 'Référencer mon commerce',
     },
     ui: {
       languageLabel: 'Langue',
+    },
+    footer: {
+      description:
+        'Votre GPS sécurité pour voyager avec votre chien dans le Nord. Lieux vérifiés, réglementation claire et itinéraires créés par une équipe qui voyage avec ses chiens chaque semaine.',
+      communityLabel: 'Communauté',
+      legal: 'Mentions légales | Politique de confidentialité | Cookies',
     },
     home: mergeHome({
       hero: {
@@ -1034,6 +1268,27 @@ export const TRANSLATIONS: Record<LanguageCode, Translation> = {
         categoryLabel: 'Catégorie',
         sourceLabel: 'Source',
         noSource: 'À confirmer',
+      },
+      faq: {
+        title: 'Questions fréquentes',
+        intro: 'Nous répondons aux doutes principaux avant d’ouvrir chaque beta régionale.',
+        items: [
+          {
+            question: 'Comment vérifiez-vous les hébergements clôturés ?',
+            answer:
+              'Nous exigeons vidéo du périmètre, contrat et visite ou inspection par drone avant d’afficher “clôture certifiée”.',
+          },
+          {
+            question: 'Couvrez-vous tout le transport (avion + bus + train) ?',
+            answer:
+              'Oui. Nous auditons Iberia, Air Europa, ALSA, Renfe, Cercanías et loueurs pour chaque région.',
+          },
+          {
+            question: 'Mon commerce peut-il être mis en avant ?',
+            answer:
+              'Formules dès 49 €/mois avec badge vérifié, campagnes SEO locales et priorité sur la carte.',
+          },
+        ],
       },
     }),
     pages: mergePages({
@@ -1097,17 +1352,49 @@ export const TRANSLATIONS: Record<LanguageCode, Translation> = {
         adoptions: 'Associations avec filtres transparents.',
         missing: 'Alertes vérifiées publiées en coordination avec les associations.',
       },
+      addBusiness: {
+        badge: 'Référencer mon commerce',
+        title: 'Obtenez une fiche vérifiée et des leads qualifiés',
+        description:
+          'Nous travaillons avec hébergements clôturés, services critiques et transport sur tout le Nord de l’Espagne.',
+        steps: [
+          {
+            title: '1. Audit express',
+            description: 'Validation légale, médias et différenciateurs en moins de 72 h.',
+          },
+          {
+            title: '2. Production de la fiche',
+            description: 'Copy stratégique, checklist pet friendly et supports téléchargeables.',
+          },
+          {
+            title: '3. Lancement & analytics',
+            description: 'Visibilité sur la home, la carte et les campagnes avec métriques mensuelles.',
+          },
+        ],
+        contactTitle: 'Rejoindre la beta privée',
+        contactDescription:
+          'Indiquez-nous si vous êtes hébergement, transport ou service critique. Réponse garantie sous 48 h.',
+        primaryCta: 'Demander la vérification',
+        secondaryCta: 'Télécharger le dossier →',
+      },
     }),
   },
   en: {
     nav: {
       regions: 'Regions',
       categories: 'Categories',
+      map: 'Map',
       blog: 'Blog',
       addBusiness: 'List my business',
     },
     ui: {
       languageLabel: 'Language',
+    },
+    footer: {
+      description:
+        'Your safety GPS to travel across Northern Spain with your dog. Verified businesses, up-to-date regulation and routes crafted by a team that travels with their pets every week.',
+      communityLabel: 'Community',
+      legal: 'Legal notice | Privacy policy | Cookies',
     },
     home: mergeHome({
       hero: {
@@ -1265,6 +1552,27 @@ export const TRANSLATIONS: Record<LanguageCode, Translation> = {
         sourceLabel: 'Source',
         noSource: 'Pending',
       },
+      faq: {
+        title: 'Frequently asked questions',
+        intro: 'Answering the most common questions before we open each regional beta.',
+        items: [
+          {
+            question: 'How do you verify a fenced stay?',
+            answer:
+              'We request perimeter video, contract and an on-site or drone inspection before labeling it as “certified fenced”.',
+          },
+          {
+            question: 'Do you cover the entire transport chain (flights + bus + train)?',
+            answer:
+              'Yes. Iberia, Air Europa, ALSA, Renfe, Cercanías and car rentals are audited per region with updated policies.',
+          },
+          {
+            question: 'Can my business get featured?',
+            answer:
+              'Plans start at €49/month with verified badge, local SEO campaigns and priority placement on the map.',
+          },
+        ],
+      },
     }),
     pages: mergePages({
       blog: {
@@ -1326,6 +1634,31 @@ export const TRANSLATIONS: Record<LanguageCode, Translation> = {
         events: 'Calendar coming soon.',
         adoptions: 'Directory of associations with transparent filters.',
         missing: 'We will publish verified alerts with local associations.',
+      },
+      addBusiness: {
+        badge: 'List your business',
+        title: 'Get a verified profile and qualified funnels',
+        description:
+          'We onboard fenced stays, critical services, transport and guided routes across Northern Spain. Process overview:',
+        steps: [
+          {
+            title: '1. Express audit',
+            description: 'We validate compliance, visuals and differentiators within 72 hours.',
+          },
+          {
+            title: '2. Profile production',
+            description: 'Strategic copy, pet friendly checklist and downloadable assets.',
+          },
+          {
+            title: '3. Launch & analytics',
+            description: 'Placement on the homepage, map and campaigns with monthly metrics.',
+          },
+        ],
+        contactTitle: 'Join the private beta',
+        contactDescription:
+          'Tell us if you are a stay, transport provider or essential service. We reply within 48 hours.',
+        primaryCta: 'Request verification',
+        secondaryCta: 'Download deck →',
       },
     }),
   },

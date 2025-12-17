@@ -32,7 +32,7 @@ export default function CategoryCard({ slug }: CategoryCardProps) {
 
   return (
     <Link
-      href={`/norte/${category.slug}`}
+      href={`/norte/${slug}`}
       className={`flex flex-col gap-3 rounded-3xl border border-transparent bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:border-primary-100 hover:shadow-card ${colors.bg}`}
     >
       <p className={`text-sm font-semibold uppercase ${colors.text}`}>{copy.label}</p>

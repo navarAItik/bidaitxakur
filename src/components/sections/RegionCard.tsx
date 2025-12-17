@@ -19,7 +19,8 @@ export default function RegionCard({ slug }: RegionCardProps) {
   if (!region) return null;
 
   const fallbackImage = 'https://images.unsplash.com/photo-1500534623283-312aade485b7';
-  const image = region.image.startsWith('/') ? region.image : fallbackImage;
+  const hasValidImage = region.image.startsWith('http') || region.image.startsWith('/');
+  const image = hasValidImage ? region.image : fallbackImage;
 
   return (
     <Link

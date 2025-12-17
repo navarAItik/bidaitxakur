@@ -96,6 +96,7 @@ export const FEATURE_FLAGS = {
 
 export const NAV_LINKS = [
   { key: 'categories', href: '#categorias' },
+  { key: 'map', href: '/mapa' },
   { key: 'blog', href: '/blog' },
   { key: 'addBusiness', href: '/alta-negocio' },
 ] as const;
