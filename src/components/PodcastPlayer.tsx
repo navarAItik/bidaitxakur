@@ -88,32 +88,81 @@ export default function PodcastPlayer({ isOpen, toggleOpen }: PodcastPlayerProps
       }
     };
 
+    const handleEnded = () => {
+      setIsPlaying(false);
+    };
+
+    const handleCanPlay = () => {
+      // El audio está listo para reproducirse
+      console.log("Audio can play");
+    };
+
+    const handleError = () => {
+      console.error("Error loading audio:", audio.error);
+    };
+
     audio.addEventListener('timeupdate', updateProgress);
-    audio.addEventListener('ended', () => setIsPlaying(false));
+    audio.addEventListener('ended', handleEnded);
+    audio.addEventListener('canplay', handleCanPlay);
+    audio.addEventListener('error', handleError);
 
     return () => {
       audio.removeEventListener('timeupdate', updateProgress);
-      audio.removeEventListener('ended', () => setIsPlaying(false));
+      audio.removeEventListener('ended', handleEnded);
+      audio.removeEventListener('canplay', handleCanPlay);
+      audio.removeEventListener('error', handleError);
     };
   }, [currentEpisode]);
 
   const togglePlay = () => {
     if (!currentEpisode) return;
 
+    const audio = audioRef.current;
+    if (!audio) return;
+
     if (isPlaying) {
-      audioRef.current?.pause();
+      audio.pause();
     } else {
-      if (audioRef.current?.src !== currentEpisode.audioUrl) {
-        audioRef.current!.src = currentEpisode.audioUrl;
+      // Configurar la fuente de audio antes de reproducir
+      if (audio.src !== currentEpisode.audioUrl) {
+        audio.src = currentEpisode.audioUrl;
+        // Cargar el nuevo audio
+        audio.load();
       }
-      audioRef.current?.play().catch(e => console.error('Playback failed:', e));
+      // Intentar reproducir con manejo de errores
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            // Reproducción exitosa
+            setIsPlaying(true);
+          })
+          .catch(error => {
+            console.error('Playback failed:', error);
+            // Mostrar mensaje de error al usuario
+            alert('No se pudo reproducir el audio. Puede que el archivo no esté disponible o haya restricciones de acceso.');
+          });
+      }
     }
     setIsPlaying(!isPlaying);
   };
 
   const handlePlayEpisode = (episode: PodcastEpisode) => {
     setCurrentEpisode(episode);
-    setIsPlaying(true);
+    // Reiniciar el progreso al cambiar de episodio
+    setProgress(0);
+    // Si el audio estaba reproduciéndose, detenerlo y reproducir el nuevo episodio
+    const audio = audioRef.current;
+    if (audio) {
+      audio.src = episode.audioUrl;
+      audio.load();
+      audio.play().then(() => {
+        setIsPlaying(true);
+      }).catch(error => {
+        console.error('Playback failed when changing episode:', error);
+        setIsPlaying(false);
+      });
+    }
   };
 
   const handleProgressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
