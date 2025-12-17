@@ -186,6 +186,10 @@ type Translation = {
     title: string;
     description: string;
   };
+  podcastPlayer: {
+    ariaLabel: string;
+    title: string;
+  };
 };
 
 type DeepPartial<T> = {
@@ -442,6 +446,10 @@ const baseHome: HomeTranslations = {
     badge: 'Historias que inspiran',
     title: 'Historias de Viajeros Pet Friendly',
     description: 'Conoce experiencias reales de viajeros con sus mascotas en el norte de España',
+  },
+  podcastPlayer: {
+    ariaLabel: 'Abrir reproductor de podcasts',
+    title: 'Podcasts Pet Friendly',
   },
 };
 
@@ -751,6 +759,12 @@ export const TRANSLATIONS: Record<LanguageCode, Translation> = {
         ],
       },
     }),
+    home: mergeHome({
+      podcastPlayer: {
+        ariaLabel: 'Abrir reproductor de podcasts',
+        title: 'Podcasts Pet Friendly',
+      },
+    }),
     pages: mergePages({
       blog: {
         title: 'Contido que posiciona e converte',
@@ -943,6 +957,12 @@ export const TRANSLATIONS: Record<LanguageCode, Translation> = {
               'Planes dende 49 €/mes con badge verificáu, campañas locales y posición prioritaria nel mapa.',
           },
         ],
+      },
+    }),
+    home: mergeHome({
+      podcastPlayer: {
+        ariaLabel: 'Abrir reproductor de podcasts',
+        title: 'Podcasts Pet Friendly',
       },
     }),
     pages: mergePages({
@@ -1671,6 +1691,12 @@ export const TRANSLATIONS: Record<LanguageCode, Translation> = {
               'Plans start at €49/month with verified badge, local SEO campaigns and priority placement on the map.',
           },
         ],
+      },
+    }),
+    home: mergeHome({
+      podcastPlayer: {
+        ariaLabel: 'Open podcast player',
+        title: 'Pet Friendly Podcasts',
       },
     }),
     pages: mergePages({
