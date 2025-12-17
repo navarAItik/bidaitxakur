@@ -27,37 +27,37 @@ export default function HomePage() {
   } = useLanguage();
 
   return (
-    <div className="space-y-20">
-      <section className="bg-white">
-        <div className="container-page grid gap-10 py-16 md:grid-cols-2">
+    <article className="space-y-20">
+      <section className="bg-white py-16" aria-labelledby="hero-title">
+        <div className="container-page grid gap-10 md:grid-cols-2">
           <div className="space-y-6">
-            <p className="text-sm font-semibold uppercase tracking-wide text-emerald-600">{hero.badge}</p>
-            <h1 className="text-4xl font-bold text-slate-900">{hero.title}</h1>
-            <p className="text-lg text-slate-600">{hero.description}</p>
-            <div className="flex flex-wrap gap-3 text-sm text-slate-600">
+            <p className="text-sm font-semibold uppercase tracking-wide text-primary-600">{hero.badge}</p>
+            <h1 id="hero-title" className="text-4xl font-bold text-neutral-900">{hero.title}</h1>
+            <p className="text-lg text-neutral-600">{hero.description}</p>
+            <div className="flex flex-wrap gap-3 text-sm text-neutral-600">
               {hero.pills.map((pill) => (
-                <span key={pill} className="rounded-full bg-slate-100 px-4 py-2">
+                <span key={pill} className="rounded-full bg-neutral-100 px-4 py-2">
                   {pill}
                 </span>
               ))}
             </div>
             <div className="flex flex-wrap gap-3">
-              <Link href="#regiones" className="rounded-full bg-primary-600 px-5 py-3 text-white shadow-lg">
+              <Link href="#regiones" className="btn-primary">
                 {hero.primaryCta}
               </Link>
-              <Link href="/alta-negocio" className="rounded-full bg-white px-5 py-3 text-slate-800 shadow">
+              <Link href="/alta-negocio" className="btn-secondary">
                 {hero.secondaryCta}
               </Link>
             </div>
           </div>
           <div className="grid gap-4">
-            <div className="relative h-64 w-full overflow-hidden rounded-3xl">
-              <Image src={HERO_IMAGES[0]} alt="Perro disfrutando" fill className="object-cover" />
+            <div className="relative h-64 w-full overflow-hidden rounded-3xl shadow-soft">
+              <Image src={HERO_IMAGES[0]} alt="Perro golden retriever disfrutando en un parque verde" fill className="object-cover" />
             </div>
             <div className="grid gap-4 md:grid-cols-2">
-              {HERO_IMAGES.slice(1).map((image) => (
-                <div key={image} className="relative h-40 w-full overflow-hidden rounded-3xl">
-                  <Image src={image} alt="Paisaje del norte" fill className="object-cover" />
+              {HERO_IMAGES.slice(1).map((image, index) => (
+                <div key={image} className="relative h-40 w-full overflow-hidden rounded-3xl shadow-soft">
+                  <Image src={image} alt={`Hermoso paisaje montañoso del norte de España ${index + 1}`} fill className="object-cover" />
                 </div>
               ))}
             </div>
@@ -73,12 +73,12 @@ export default function HomePage() {
       <JourneySection />
       <InsightsSection />
 
-      <section id="categorias" className="bg-gray-50 py-16">
+      <section id="categorias" className="bg-neutral-50 py-16" aria-labelledby="categories-title">
         <div className="container-page space-y-8">
           <div className="text-center">
             <p className="text-sm uppercase tracking-wide text-primary-500">{categoriesSection.badge}</p>
-            <h2 className="text-3xl font-semibold text-slate-900">{categoriesSection.title}</h2>
-            <p className="text-slate-600">{categoriesSection.description}</p>
+            <h2 id="categories-title" className="text-3xl font-semibold text-neutral-900">{categoriesSection.title}</h2>
+            <p className="text-neutral-600">{categoriesSection.description}</p>
           </div>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {CATEGORIES.map((category) => (
@@ -88,12 +88,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="regiones" className="bg-white py-16">
+      <section id="regiones" className="bg-white py-16" aria-labelledby="regions-title">
         <div className="container-page space-y-10">
           <div className="text-center">
             <p className="text-sm uppercase tracking-wide text-primary-500">{regionsSection.badge}</p>
-            <h2 className="text-3xl font-semibold text-slate-900">{regionsSection.title}</h2>
-            <p className="text-slate-600">{regionsSection.description}</p>
+            <h2 id="regions-title" className="text-3xl font-semibold text-neutral-900">{regionsSection.title}</h2>
+            <p className="text-neutral-600">{regionsSection.description}</p>
           </div>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {regions.map((region) => (
@@ -109,6 +109,60 @@ export default function HomePage() {
       <TestimonialCarousel />
       <CallToActionSection />
       <FAQSection />
-    </div>
+
+      <section className="bg-neutral-50 py-16" aria-labelledby="gallery-title">
+        <div className="container-page space-y-8">
+          <div className="text-center">
+            <h2 id="gallery-title" className="text-3xl font-semibold text-neutral-900">Nuestra Galería</h2>
+            <p className="text-neutral-600">Descubre momentos especiales con nuestros amigos peludos</p>
+          </div>
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            <div className="group relative overflow-hidden rounded-2xl shadow-soft transition-transform duration-300 hover:scale-105">
+              <picture>
+                <source srcSet="/images/foto1.webp" type="image/webp" />
+                <Image
+                  src="/images/foto1.jpg"
+                  alt="Perro jugando en el parque con su dueño"
+                  width={300}
+                  height={200}
+                  className="h-48 w-full object-cover transition-opacity duration-300 group-hover:opacity-90"
+                  loading="lazy"
+                />
+              </picture>
+            </div>
+            <div className="group relative overflow-hidden rounded-2xl shadow-soft transition-transform duration-300 hover:scale-105">
+              <Image
+                src="/images/foto2.png"
+                alt="Paseo en la montaña con perros"
+                width={300}
+                height={200}
+                className="h-48 w-full object-cover transition-opacity duration-300 group-hover:opacity-90"
+                loading="lazy"
+              />
+            </div>
+            <div className="group relative overflow-hidden rounded-2xl shadow-soft transition-transform duration-300 hover:scale-105">
+              <Image
+                src="/images/foto3.jpg"
+                alt="Sesión de fotos con cachorros"
+                width={300}
+                height={200}
+                className="h-48 w-full object-cover transition-opacity duration-300 group-hover:opacity-90"
+                loading="lazy"
+              />
+            </div>
+            <div className="group relative overflow-hidden rounded-2xl shadow-soft transition-transform duration-300 hover:scale-105">
+              <Image
+                src="/images/foto4.png"
+                alt="Perros en un evento comunitario"
+                width={300}
+                height={200}
+                className="h-48 w-full object-cover transition-opacity duration-300 group-hover:opacity-90"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+    </article>
   );
 }

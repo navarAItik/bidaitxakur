@@ -108,6 +108,19 @@ export const BUSINESS_FILTERS = {
   servicios: ['cuidadores', 'guarderias', 'adiestradores'],
 };
 
+export const POI_FILTERS = {
+  alojamiento: ['vallado-certificado', 'sin-suplmento', 'sin-limite-peso'],
+  playa: ['acceso-temporada-alta', 'ppp-permitidas', 'normativa-especial'],
+  veterinaria: ['urgencias-24h', 'especialidades', 'domicilio'],
+  ruta: ['con-agua', 'facil', 'medio', 'dificil', 'bicicleta', 'senderismo'],
+  transporte: ['cabina', 'bodega', 'grandes', 'sin-limite'],
+  'espacio-natural': ['zec', 'ecoturismo', 'actividades-variadas'],
+  hosteleria: ['terraza-pet-friendly', 'menu-especial'],
+  tienda: ['alimentacion-especializada', 'productos-naturales'],
+  servicio: ['cuidadores', 'adiestradores', 'guarderias'],
+  comunidad: ['eventos', 'adopciones', 'perros-desaparecidos'],
+};
+
 export const HERO_IMAGES = [
   'https://images.unsplash.com/photo-1507146426996-ef05306b995a',
   'https://images.unsplash.com/photo-1500534623283-312aade485b7',

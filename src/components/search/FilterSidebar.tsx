@@ -1,13 +1,10 @@
 'use client';
 
-import { BUSINESS_FILTERS } from '@/lib/constants';
-
 interface FilterSidebarProps {
-  category: keyof typeof BUSINESS_FILTERS | 'default';
+  filters: string[];
 }
 
-export default function FilterSidebar({ category }: FilterSidebarProps) {
-  const filters = BUSINESS_FILTERS[category as keyof typeof BUSINESS_FILTERS] ?? [];
+export default function FilterSidebar({ filters }: FilterSidebarProps) {
 
   return (
     <aside className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">

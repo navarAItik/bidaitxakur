@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { REGION_DATA, CATEGORIES, type RegionSlug, type CategorySlug } from '@/lib/constants';
 import { getCategoryMetadata } from '@/lib/seo';
 import type { Business } from '@/types/business';
+import type { POI } from '@/types/poi';
 import CategoryPageContent from '@/components/pages/CategoryPageContent';
 
 interface Params {
@@ -40,6 +41,32 @@ const mockBusinesses: Business[] = [
   },
 ];
 
+const mockPOIs: POI[] = [
+  {
+    id: '2',
+    region: 'euskadi',
+    category: 'ocio-naturaleza',
+    type: 'playa',
+    name: 'Playa de La Concha',
+    slug: 'playa-la-concha',
+    description: 'Playa urbana icónica en San Sebastián, pet-friendly en temporada baja.',
+    location: { latitude: 43.3183, longitude: -1.9812, town: 'San Sebastián' },
+    petRules: {
+      allowed: true,
+      notes: 'Permitidos fuera de temporada alta. Bozal obligatorio para PPP.',
+      maxPets: 2,
+      typesAllowed: ['perro'],
+      restrictions: ['correa obligatoria', 'no en zona de baño'],
+    },
+    contact: { website: 'https://www.sansebastianturismo.com' },
+    images: ['/images/playa-concha.jpg'],
+    verified: true,
+    featured: true,
+    tags: ['playa', 'urbana', 'temporada-baja'],
+    stats: { reviews: 45, rating: 4.2, favorites: 120 },
+  },
+];
+
 export default function CategoryPage({ params }: Params) {
   const region = REGION_DATA.find((item) => item.slug === params.region);
   const category = CATEGORIES.find((item) => item.slug === params.category);
@@ -52,6 +79,10 @@ export default function CategoryPage({ params }: Params) {
     (business) => business.region === region.slug && business.category === category.slug
   );
 
+  const pois = mockPOIs.filter(
+    (poi) => poi.region === region.slug && poi.category === category.slug
+  );
+
   return (
     <div className="bg-slate-50 py-12">
       <div className="container-page space-y-8">
@@ -61,6 +92,7 @@ export default function CategoryPage({ params }: Params) {
           categoryLabel={category.label}
           categoryDescription={category.description}
           businesses={businesses}
+          pois={pois}
         />
       </div>
     </div>

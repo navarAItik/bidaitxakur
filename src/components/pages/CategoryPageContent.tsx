@@ -4,8 +4,10 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import SearchBar from '@/components/search/SearchBar';
 import FilterSidebar from '@/components/search/FilterSidebar';
 import BusinessCard from '@/components/business/BusinessCard';
-import { BUSINESS_FILTERS, type CategorySlug } from '@/lib/constants';
+import POICard from '@/components/poi/POICard';
+import { BUSINESS_FILTERS, POI_FILTERS } from '@/lib/constants';
 import type { Business } from '@/types/business';
+import type { POI } from '@/types/poi';
 
 interface CategoryPageContentProps {
   regionName: string;
@@ -13,6 +15,7 @@ interface CategoryPageContentProps {
   categoryLabel: string;
   categoryDescription: string;
   businesses: Business[];
+  pois?: POI[];
 }
 
 export default function CategoryPageContent({
@@ -21,6 +24,7 @@ export default function CategoryPageContent({
   categoryLabel,
   categoryDescription,
   businesses,
+  pois = [],
 }: CategoryPageContentProps) {
   const {
     translations: {
@@ -48,11 +52,14 @@ export default function CategoryPageContent({
       </header>
       <SearchBar variant="header" />
       <div className="grid gap-6 md:grid-cols-[280px_1fr]">
-        <FilterSidebar category={categoryKey as keyof typeof BUSINESS_FILTERS | 'default'} />
+        <FilterSidebar filters={pois.length > 0 ? (POI_FILTERS[categoryKey as keyof typeof POI_FILTERS] || []) : (BUSINESS_FILTERS[categoryKey as keyof typeof BUSINESS_FILTERS] || [])} />
         <div className="grid gap-6 md:grid-cols-2">
-          {businesses.length === 0 && <p className="text-sm text-slate-500">{category.emptyState}</p>}
+          {businesses.length === 0 && pois.length === 0 && <p className="text-sm text-slate-500">{category.emptyState}</p>}
           {businesses.map((business) => (
             <BusinessCard key={business.id} business={business} />
+          ))}
+          {pois.map((poi) => (
+            <POICard key={poi.id} poi={poi} />
           ))}
         </div>
       </div>

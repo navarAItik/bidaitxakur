@@ -16,14 +16,21 @@ export default function Header() {
   const activeLanguageLabel = LANGUAGES.find((lang) => lang.code === language)?.label ?? language.toUpperCase();
 
   return (
-    <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/90 backdrop-blur">
+    <header className="sticky top-0 z-30 border-b border-neutral-200 bg-neutral-50/90 backdrop-blur" role="banner">
       <div className="container-page flex items-center justify-between py-4">
-        <Link href="/" className="flex items-center gap-2">
-          <Image src="/logo.svg" width={160} height={42} alt="Huellas del Norte" priority />
+        <Link href="/" className="flex items-center gap-2" aria-label="Ir a la página principal">
+          <Image
+            src="/images/logo_huellas.png"
+            width={160}
+            height={48}
+            alt="Logotipo de Huellas - BidaiTxakur"
+            priority
+            className="site-logo"
+          />
         </Link>
-        <nav className="hidden items-center gap-6 text-sm font-medium text-slate-700 lg:flex">
+        <nav className="hidden items-center gap-6 text-sm font-medium text-neutral-700 lg:flex" role="navigation" aria-label="Navegación principal">
           {NAV_LINKS.map((link) => (
-            <a key={link.href} href={link.href} className="hover:text-primary-600">
+            <a key={link.href} href={link.href} className="hover:text-primary-600 transition-colors">
               {nav[link.key]}
             </a>
           ))}
@@ -32,23 +39,24 @@ export default function Header() {
             onMouseEnter={() => setRegionMenuOpen(true)}
             onMouseLeave={() => setRegionMenuOpen(false)}
           >
-            <button className="flex items-center gap-1 hover:text-primary-600">
+            <button className="flex items-center gap-1 hover:text-primary-600 transition-colors" aria-haspopup="true" aria-expanded={regionMenuOpen}>
               {nav.regions}
-              <span aria-hidden>▾</span>
+              <span aria-hidden="true">▾</span>
             </button>
             {regionMenuOpen && (
-              <div className="absolute right-0 top-full mt-2 min-w-[280px] rounded-2xl border border-slate-200 bg-white p-4 text-left shadow-card">
-                <p className="mb-3 text-xs uppercase tracking-wide text-slate-500">Norte</p>
+              <div className="absolute right-0 top-full mt-2 min-w-[280px] rounded-2xl border border-neutral-200 bg-white p-4 text-left shadow-card" role="menu">
+                <p className="mb-3 text-xs uppercase tracking-wide text-neutral-500">Norte</p>
                 <div className="grid grid-cols-2 gap-3">
                   {REGION_DATA.filter((region) => region.slug !== 'norte').map((region) => (
                     <Link
                       key={region.slug}
                       href={`/${region.slug}`}
-                      className="rounded-xl border border-slate-100 p-3 text-sm hover:border-primary-200 hover:bg-primary-50"
+                      className="rounded-xl border border-neutral-100 p-3 text-sm hover:border-primary-200 hover:bg-primary-50 transition-colors"
                       onClick={() => setRegionMenuOpen(false)}
+                      role="menuitem"
                     >
                       <p className="font-semibold capitalize">{region.name}</p>
-                      <p className="text-xs text-slate-500">{region.description}</p>
+                      <p className="text-xs text-neutral-500">{region.description}</p>
                     </Link>
                   ))}
                 </div>
@@ -57,16 +65,17 @@ export default function Header() {
           </div>
           <div className="relative">
             <button
-              className="flex items-center gap-2 rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold uppercase tracking-wide hover:border-primary-300 hover:text-primary-600"
+              className="flex items-center gap-2 rounded-full border border-neutral-200 px-3 py-1 text-xs font-semibold uppercase tracking-wide hover:border-primary-300 hover:text-primary-600 transition-colors"
               onClick={() => setLanguageMenuOpen((prev) => !prev)}
               aria-haspopup="true"
               aria-expanded={languageMenuOpen}
+              aria-label="Seleccionar idioma"
             >
               {activeLanguageLabel}
-              <span aria-hidden>▾</span>
+              <span aria-hidden="true">▾</span>
             </button>
             {languageMenuOpen && (
-              <div className="absolute right-0 top-full mt-2 w-32 rounded-2xl border border-slate-200 bg-white p-2 text-sm shadow-card">
+              <div className="absolute right-0 top-full mt-2 w-32 rounded-2xl border border-neutral-200 bg-white p-2 text-sm shadow-card" role="menu">
                 {LANGUAGES.map((lang) => (
                   <button
                     key={lang.code}
@@ -74,9 +83,10 @@ export default function Header() {
                       setLanguage(lang.code);
                       setLanguageMenuOpen(false);
                     }}
-                    className={`w-full rounded-xl px-3 py-2 text-left hover:bg-primary-50 ${
-                      language === lang.code ? 'text-primary-600' : 'text-slate-600'
+                    className={`w-full rounded-xl px-3 py-2 text-left hover:bg-primary-50 transition-colors ${
+                      language === lang.code ? 'text-primary-600' : 'text-neutral-600'
                     }`}
+                    role="menuitem"
                   >
                     {lang.name}
                   </button>
@@ -88,43 +98,44 @@ export default function Header() {
         <div className="hidden lg:flex">
           <Link
             href="/alta-negocio"
-            className="rounded-full bg-primary-600 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-primary-600/30"
+            className="btn-primary"
           >
             {nav.addBusiness}
           </Link>
         </div>
         <button
-          className="rounded-full border border-slate-200 p-2 text-slate-700 lg:hidden"
+          className="rounded-full border border-neutral-200 p-2 text-neutral-700 lg:hidden hover:bg-neutral-50 transition-colors"
           onClick={() => setOpen((prev) => !prev)}
-          aria-label="Abrir menú"
+          aria-label="Abrir menú de navegación"
+          aria-expanded={open}
         >
           ☰
         </button>
       </div>
       {open && (
-        <div className="border-t border-slate-200 bg-white px-4 py-4 lg:hidden">
-          <div className="flex flex-col gap-3 text-sm text-slate-700">
+        <div className="border-t border-neutral-200 bg-white px-4 py-4 lg:hidden" role="navigation" aria-label="Menú móvil">
+          <div className="flex flex-col gap-3 text-sm text-neutral-700">
             {NAV_LINKS.map((link) => (
-              <a key={link.href} href={link.href} className="rounded-lg px-3 py-2 hover:bg-slate-100">
+              <a key={link.href} href={link.href} className="rounded-lg px-3 py-2 hover:bg-neutral-100 transition-colors">
                 {nav[link.key]}
               </a>
             ))}
             {REGION_DATA.filter((region) => region.slug !== 'norte').map((region) => (
-              <Link key={region.slug} href={`/${region.slug}`} className="rounded-lg px-3 py-2 hover:bg-slate-100">
+              <Link key={region.slug} href={`/${region.slug}`} className="rounded-lg px-3 py-2 hover:bg-neutral-100 transition-colors">
                 {region.name}
               </Link>
             ))}
-            <div className="rounded-lg border border-slate-200 p-3">
-              <p className="text-xs uppercase tracking-wide text-slate-500">{ui.languageLabel}</p>
+            <div className="rounded-lg border border-neutral-200 p-3">
+              <p className="text-xs uppercase tracking-wide text-neutral-500">{ui.languageLabel}</p>
               <div className="mt-2 flex gap-2">
                 {LANGUAGES.map((lang) => (
                   <button
                     key={lang.code}
                     onClick={() => setLanguage(lang.code)}
-                    className={`flex-1 rounded-full px-3 py-2 text-sm font-semibold ${
+                    className={`flex-1 rounded-full px-3 py-2 text-sm font-semibold transition-colors ${
                       language === lang.code
                         ? 'bg-primary-600 text-white'
-                        : 'bg-slate-100 text-slate-700'
+                        : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
                     }`}
                   >
                     {lang.label}
