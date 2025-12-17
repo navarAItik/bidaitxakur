@@ -10,6 +10,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
+  const [regionMenuOpen, setRegionMenuOpen] = useState(false);
   const { language, setLanguage, translations } = useLanguage();
   const { nav, ui } = translations;
   const activeLanguageLabel = LANGUAGES.find((lang) => lang.code === language)?.label ?? language.toUpperCase();
@@ -26,26 +27,33 @@ export default function Header() {
               {nav[link.key]}
             </a>
           ))}
-          <div className="group relative">
+          <div
+            className="relative"
+            onMouseEnter={() => setRegionMenuOpen(true)}
+            onMouseLeave={() => setRegionMenuOpen(false)}
+          >
             <button className="flex items-center gap-1 hover:text-primary-600">
               {nav.regions}
               <span aria-hidden>▾</span>
             </button>
-            <div className="invisible absolute right-0 top-full mt-2 min-w-[280px] rounded-2xl border border-slate-200 bg-white p-4 text-left shadow-card opacity-0 transition group-hover:visible group-hover:opacity-100">
-              <p className="mb-3 text-xs uppercase tracking-wide text-slate-500">Norte</p>
-              <div className="grid grid-cols-2 gap-3">
-                {REGION_DATA.filter((region) => region.slug !== 'norte').map((region) => (
-                  <Link
-                    key={region.slug}
-                    href={`/${region.slug}`}
-                    className="rounded-xl border border-slate-100 p-3 text-sm hover:border-primary-200 hover:bg-primary-50"
-                  >
-                    <p className="font-semibold capitalize">{region.name}</p>
-                    <p className="text-xs text-slate-500">{region.description}</p>
-                  </Link>
-                ))}
+            {regionMenuOpen && (
+              <div className="absolute right-0 top-full mt-2 min-w-[280px] rounded-2xl border border-slate-200 bg-white p-4 text-left shadow-card">
+                <p className="mb-3 text-xs uppercase tracking-wide text-slate-500">Norte</p>
+                <div className="grid grid-cols-2 gap-3">
+                  {REGION_DATA.filter((region) => region.slug !== 'norte').map((region) => (
+                    <Link
+                      key={region.slug}
+                      href={`/${region.slug}`}
+                      className="rounded-xl border border-slate-100 p-3 text-sm hover:border-primary-200 hover:bg-primary-50"
+                      onClick={() => setRegionMenuOpen(false)}
+                    >
+                      <p className="font-semibold capitalize">{region.name}</p>
+                      <p className="text-xs text-slate-500">{region.description}</p>
+                    </Link>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
           </div>
           <div className="relative">
             <button
