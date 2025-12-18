@@ -5,7 +5,7 @@ import SearchBar from '@/components/search/SearchBar';
 import FilterSidebar from '@/components/search/FilterSidebar';
 import BusinessCard from '@/components/business/BusinessCard';
 import POICard from '@/components/poi/POICard';
-import { BUSINESS_FILTERS, POI_FILTERS } from '@/lib/constants';
+import { BUSINESS_FILTERS, POI_FILTERS, type CategorySlug } from '@/lib/constants';
 import type { Business } from '@/types/business';
 import type { POI } from '@/types/poi';
 

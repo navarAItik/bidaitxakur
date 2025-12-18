@@ -1,68 +1,66 @@
-# Patas Navarricas
+# BidaiTxakur Platform
 
-Directorio y guía **pet-friendly en Navarra** construido con **React + Vite + TypeScript** y **Tailwind CSS**. Incluye listados, fichas con mapa OpenStreetMap/Leaflet, formularios Netlify Forms y base de datos en ficheros TS para empezar rápido.
+Plataforma web para mapear recursos pet-friendly en el norte de España. Frontend en **Next.js 14 + Tailwind** y backend en **Django 5 + DRF** (recién iniciado). La meta es servir datos verificados, normativa y contenido editorial a través de un stack híbrido fácilmente desplegable en contenedores.
+
+## Servicios
+
+| Servicio | Puerto | Descripción |
+|----------|--------|-------------|
+| Next.js  | 3000   | UI pública, widget de podcasts, banner de cookies y secciones dinámicas. |
+| Django   | 8000   | API REST (de momento sólo `/api/health/`). Aquí vivirá la lógica de negocio y la “base viva”. |
+| Postgres | 5432   | Base de datos; usa el contenedor del compose o apunta a tu servidor propio mediante `DATABASE_URL`. |
 
 ## Requisitos
-- Node.js 18+
+- Node.js 20+
 - npm
+- Docker (opcional pero recomendado para levantar los tres servicios a la vez)
 
-## Scripts
-- `npm run dev`: entorno de desarrollo en `http://localhost:5173`
-- `npm run build`: compila TypeScript y genera `dist`
-- `npm run preview`: servidor local para revisar el build
-- `npm run lint`: ESLint con reglas para React/TypeScript
+## Scripts frontend
+- `npm run dev`: servidor Next en `http://localhost:3000`
+- `npm run lint`: ESLint
+- `npm run build`: build + typecheck
+- `npm run start`: sirve el build
 
-## Instalación
+## Levantar todo con Docker
 ```bash
-npm install
+docker compose up --build
+```
+Esto arranca:
+- `frontend` con hot reload (usa `Dockerfile.frontend`).
+- `backend` (Django `runserver`).
+- `db` (Postgres 15). Si ya tienes una base externa, elimina este servicio y ajusta `DATABASE_URL` en `backend/.env.example`.
+
+## Backend Django
+Ubicación: `backend/`
+
+```
+backend/
+├── api/                 # App inicial con /api/health/
+├── petfriendly_backend/ # Proyecto Django
+├── manage.py
+├── requirements.txt
+├── Dockerfile
+└── .env.example
 ```
 
-## Ejecutar en local
+### Comandos útiles
 ```bash
-npm run dev
+cd backend
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver
 ```
 
-## Desplegar en Netlify
-1. Conecta el repo con Netlify.
-2. Configura los ajustes de build:
-   - **Build command:** `npm run build`
-   - **Publish directory:** `dist`
-3. Asegúrate de incluir las variables necesarias (ninguna obligatoria para el MVP).
-4. Los formularios usan Netlify Forms, no necesitan backend adicional.
+## Arquitectura y docs
+- `docs/implementation-notes.md`: histórico de cambios.
+- `docs/hybrid-architecture.md`: esquema de la solución híbrida, comandos y roadmap sugerido.
+- `docs/legal-framework`: guía de cumplimiento (RGPD + Ley 7/2023).
 
-## Añadir nuevos lugares
-1. Edita `src/data/places.ts` y añade un objeto con el esquema:
-```ts
-id, name, category, subcategory?, description,
-town, province: "Navarra", address?, phone?, website?,
-lat, lng,
-tags: string[],
-petPolicy: { allowed: boolean; notes?: string; },
-verified: boolean,
-featured: boolean,
-affiliate?: { provider: "booking"|"otra"; url: string; disclaimer: string; }
-hours?: string,
-images?: string[]
-```
-2. Guarda y vuelve a ejecutar `npm run dev` o `npm run build`.
-3. Para mover a backend en el futuro, usa la capa `placesService` como referencia.
+## Próximos pasos sugeridos
+1. Modelar los recursos reales en Django (regiones, categorías, listados, normativa).
+2. Reemplazar los mocks de Next por peticiones al backend (`NEXT_PUBLIC_API_BASE_URL`).
+3. Añadir autenticación/admin y flujos internos en Django.
+4. Automatizar despliegues front/back con los Dockerfiles incluidos.
 
-## Roadmap Fase 2 (no implementada aún)
-- **Firebase Auth** para que negocios gestionen su ficha.
-- **Firestore** para almacenar lugares y claims (verificados, destacados) sustituyendo `src/data/`.
-- **Netlify Functions** para validar envíos, antispam y operaciones de admin sin exponer claves.
-- **Stripe** (opcional) para cobrar planes Destacado/Patrocinado con webhooks que actualicen Firestore.
-
-## Estructura
-- `src/pages`: páginas principales (home, directorio, categoría, ficha, planes, rutas, formularios, legal)
-- `src/components`: UI reutilizable (cards, búsqueda, filtros, mapa, newsletter)
-- `src/data`: datos de ejemplo
-- `src/services`: capa de servicio para desacoplar UI y datos
-- `src/types`: tipados compartidos
-
-## SEO y assets
-- Metadatos por página con `react-helmet-async`
-- `public/robots.txt` y `public/sitemap.xml`
-- Favicon SVG ligero
-
-¡Lista para copiar/pegar y desplegar!
+El proyecto está “en obras”, pero la base tecnológica ya permite crecer hacia un marketplace verificado con datos vivos. ¡Vamos allá! 

@@ -1,0 +1,12 @@
+node_modules
+.next
+dist
+npm-debug.log*
+Dockerfile.local
+docker-compose*.yaml
+docker-compose*.yml
+.env
+.env.local
+*.pyc
+__pycache__/
+backend/.venv

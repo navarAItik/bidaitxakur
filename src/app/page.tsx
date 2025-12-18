@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import SearchBar from '@/components/search/SearchBar';
 import TrustBadges from '@/components/sections/TrustBadges';
 import StatsSection from '@/components/sections/StatsSection';
 import DogsShowcaseSection from '@/components/sections/DogsShowcaseSection';
@@ -84,28 +83,40 @@ export default function HomePage() {
    const prevQuote = () => setQuoteIndex((prev) => (prev - 1 + dogQuotes.length) % dogQuotes.length);
 
    const currentQuote = dogQuotes[quoteIndex];
+   const isUnderConstruction = true;
+   const showFullExperience = !isUnderConstruction;
+
+   const heroInProgress = {
+     badge: '🚧 Beta en construcción',
+     title: 'Estamos afinando la guía pet friendly del norte',
+     description:
+       'El mapa, la normativa y los podcasts están en pleno montaje. Somos un equipo pequeño pero cabezón y queremos que todo sea seguro antes de abrir la persiana.',
+     pills: ['Mapa en progreso', 'Datos verificados en pruebas', 'Testers con ganas de aventura'],
+     primaryCta: 'Quiero enterarme cuando esté listo',
+     secondaryCta: 'Mientras tanto soñar →',
+   };
 
   return (
     <article className="space-y-20">
       <section className="bg-white py-16" aria-labelledby="hero-title">
         <div className="container-page grid gap-10 md:grid-cols-2">
           <div className="space-y-6">
-            <p className="text-sm font-semibold uppercase tracking-wide text-primary-600">{hero.badge}</p>
-            <h1 id="hero-title" className="text-4xl font-bold text-neutral-900">{hero.title}</h1>
-            <p className="text-lg text-neutral-600">{hero.description}</p>
+            <p className="text-sm font-semibold uppercase tracking-wide text-primary-600">{heroInProgress.badge}</p>
+            <h1 id="hero-title" className="text-4xl font-bold text-neutral-900">{heroInProgress.title}</h1>
+            <p className="text-lg text-neutral-600">{heroInProgress.description}</p>
             <div className="flex flex-wrap gap-3 text-sm text-neutral-600">
-              {hero.pills.map((pill) => (
+              {heroInProgress.pills.map((pill) => (
                 <span key={pill} className="rounded-full bg-neutral-100 px-4 py-2">
                   {pill}
                 </span>
               ))}
             </div>
             <div className="flex flex-wrap gap-3">
-              <Link href="#regiones" className="btn-primary">
-                {hero.primaryCta}
+              <Link href="#actualizaciones" className="btn-primary">
+                {heroInProgress.primaryCta}
               </Link>
-              <Link href="/alta-negocio" className="btn-secondary">
-                {hero.secondaryCta}
+              <Link href="#categorias" className="btn-secondary">
+                {heroInProgress.secondaryCta}
               </Link>
             </div>
           </div>
@@ -122,15 +133,38 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-        <div className="container-page -mt-8">
-          <SearchBar />
+      </section>
+
+      <section id="actualizaciones" className="bg-neutral-50 py-16">
+        <div className="container-page space-y-6 text-center">
+          <p className="text-sm font-semibold uppercase tracking-wide text-primary-600">Construcción feliz</p>
+          <h2 className="text-3xl font-semibold text-neutral-900">Esta página está en obras (y nos chifla admitirlo)</h2>
+          <p className="mx-auto max-w-2xl text-neutral-600">
+            Estamos testeando mapas, fichas y normativa con un grupo pequeño de familias viajeras.
+            Si quieres cotillear avances, escríbenos a <a href="mailto:hola@bidaitxakur.com" className="font-semibold text-primary-700">hola@bidaitxakur.com</a> o síguenos en redes.
+          </p>
+          <div className="grid gap-4 text-left md:grid-cols-3">
+            {[
+              'Mapa interactivo en beta privada con rutas y alertas legales.',
+              'Widget de podcasts y checklist para viajes con peludos.',
+              'Experimentos con filtros fiables y avisos meteorológicos.',
+            ].map((item) => (
+              <div key={item} className="rounded-3xl border border-neutral-200 bg-white p-5 shadow-sm">
+                <p className="text-sm text-neutral-700">{item}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      <TrustBadges />
-      <StatsSection />
-      <JourneySection />
-      <InsightsSection />
+      {showFullExperience && (
+        <>
+          <TrustBadges />
+          <StatsSection />
+          <JourneySection />
+          <InsightsSection />
+        </>
+      )}
 
       <section id="categorias" className="bg-neutral-50 py-16" aria-labelledby="categories-title">
         <div className="container-page space-y-8">
@@ -162,12 +196,16 @@ export default function HomePage() {
         </div>
       </section>
 
-      <MarketplaceHighlights />
-      <TransportMatrixSection />
-      <DogsShowcaseSection />
-      <TestimonialCarousel />
+      {showFullExperience && (
+        <>
+          <MarketplaceHighlights />
+          <TransportMatrixSection />
+          <DogsShowcaseSection />
+          <TestimonialCarousel />
+        </>
+      )}
       <TravelerStoriesSection />
-      <CallToActionSection />
+      {showFullExperience && <CallToActionSection />}
       <FAQSection />
 
       <section className="bg-neutral-50 py-16" aria-labelledby="quotes-title">
@@ -186,7 +224,7 @@ export default function HomePage() {
                    className="object-cover"
                  />
                </div>
-               <p className="mt-6 text-center text-xl font-semibold text-slate-900">"{currentQuote.quote}"</p>
+               <p className="mt-6 text-center text-xl font-semibold text-slate-900">&ldquo;{currentQuote.quote}&rdquo;</p>
                <p className="mt-4 text-center text-sm text-slate-600">- {currentQuote.author}</p>
                <div className="mt-6 flex justify-center gap-3">
                  <button onClick={prevQuote} className="rounded-full border border-slate-200 px-4 py-2 text-sm hover:bg-slate-50">

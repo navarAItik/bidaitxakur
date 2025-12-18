@@ -163,6 +163,66 @@ type PagesTranslations = {
   };
 };
 
+type TravelerStoriesTranslations = {
+  badge: string;
+  title: string;
+  description: string;
+};
+
+type PodcastWidgetTranslations = {
+  openLabel: string;
+  title: string;
+  subtitle: string;
+  accessibilityHint: string;
+  searchLabel: string;
+  searchPlaceholder: string;
+  platformLabel: string;
+  platformAll: string;
+  listLabel: string;
+  emptyState: string;
+  embedTitle: string;
+  metadata: {
+    duration: string;
+    theme: string;
+    lastUpdate: string;
+  };
+  episodesTitle: string;
+  player: {
+    heading: string;
+    play: string;
+    pause: string;
+    progressLabel: string;
+    durationLabel: string;
+    nowPlaying: string;
+    visitPlatform: string;
+  };
+  closeLabel: string;
+  legalReminder: string;
+};
+
+type CookieConsentTranslations = {
+  title: string;
+  description: string;
+  learnMore: string;
+  manageLabel: string;
+  buttons: {
+    acceptAll: string;
+    rejectAll: string;
+    customize: string;
+    save: string;
+  };
+  categories: {
+    necessary: { title: string; description: string };
+    analytics: { title: string; description: string };
+    marketing: { title: string; description: string };
+  };
+  preferencesTitle: string;
+  preferencesDescription: string;
+  analyticsLabel: string;
+  marketingLabel: string;
+  savedMessage: string;
+};
+
 type Translation = {
   nav: {
     regions: string;
@@ -181,15 +241,9 @@ type Translation = {
   };
   home: HomeTranslations;
   pages: PagesTranslations;
-  travelerStories: {
-    badge: string;
-    title: string;
-    description: string;
-  };
-  podcastPlayer: {
-    ariaLabel: string;
-    title: string;
-  };
+  travelerStories: TravelerStoriesTranslations;
+  podcastWidget: PodcastWidgetTranslations;
+  cookieConsent: CookieConsentTranslations;
 };
 
 type DeepPartial<T> = {
@@ -442,15 +496,6 @@ const baseHome: HomeTranslations = {
       },
     ],
   },
-  travelerStories: {
-    badge: 'Historias que inspiran',
-    title: 'Historias de Viajeros Pet Friendly',
-    description: 'Conoce experiencias reales de viajeros con sus mascotas en el norte de España',
-  },
-  podcastPlayer: {
-    ariaLabel: 'Abrir reproductor de podcasts',
-    title: 'Podcasts Pet Friendly',
-  },
 };
 
 const basePages: PagesTranslations = {
@@ -539,6 +584,45 @@ const basePages: PagesTranslations = {
 
 export const BASE_BLOG_POSTS = basePages.blog.posts;
 
+const baseTravelerStories: TravelerStoriesTranslations = {
+  badge: 'Historias que inspiran',
+  title: 'Historias de Viajeros Pet Friendly',
+  description: 'Conoce experiencias reales de viajeros con sus mascotas en el norte de España',
+};
+
+const basePodcastWidget: PodcastWidgetTranslations = {
+  openLabel: 'Abrir podcasts verificados',
+  title: 'Podcasts pet friendly',
+  subtitle: 'Contenido en audio para inspirar viajes con perro',
+  accessibilityHint:
+    'Panel lateral accesible con teclado, lector de pantalla y reproducción continua.',
+  searchLabel: 'Busca por temática o podcast',
+  searchPlaceholder: 'educación, bienestar, transporte...',
+  platformLabel: 'Plataforma',
+  platformAll: 'Todas',
+  listLabel: 'Lista de podcasts destacados',
+  emptyState: 'No hay podcasts para este filtro. Prueba con otra palabra clave.',
+  embedTitle: 'Escucha sin salir de la página',
+  metadata: {
+    duration: 'Duración media',
+    theme: 'Temática',
+    lastUpdate: 'Última actualización',
+  },
+  episodesTitle: 'Últimos episodios curados',
+  player: {
+    heading: 'Mini reproductor accesible',
+    play: 'Reproducir episodio',
+    pause: 'Pausar episodio',
+    progressLabel: 'Progreso del episodio',
+    durationLabel: 'Duración',
+    nowPlaying: 'Reproduciendo',
+    visitPlatform: 'Abrir en {platform}',
+  },
+  closeLabel: 'Cerrar panel de podcasts',
+  legalReminder:
+    'Recuerda revisar la normativa local y las políticas pet friendly del destino antes de viajar.',
+};
+
 function mergeObject<T>(base: T, overrides?: DeepPartial<T>): T {
   const clone = structuredClone(base);
   if (!overrides) return clone;
@@ -563,6 +647,45 @@ function mergeObject<T>(base: T, overrides?: DeepPartial<T>): T {
 
 const mergeHome = (overrides?: DeepPartial<HomeTranslations>) => mergeObject(baseHome, overrides);
 const mergePages = (overrides?: DeepPartial<PagesTranslations>) => mergeObject(basePages, overrides);
+const mergeTravelerStories = (overrides?: DeepPartial<TravelerStoriesTranslations>) =>
+  mergeObject(baseTravelerStories, overrides);
+const mergePodcastWidget = (overrides?: DeepPartial<PodcastWidgetTranslations>) =>
+  mergeObject(basePodcastWidget, overrides);
+const baseCookieConsent: CookieConsentTranslations = {
+  title: 'Cuidamos tu privacidad',
+  description:
+    'Usamos cookies propias y de terceros para garantizar el funcionamiento básico, medir el uso de la web y ofrecer contenido relevante del sector pet friendly.',
+  learnMore: 'Leer la guía legal y de cookies',
+  manageLabel: 'Gestionar cookies',
+  buttons: {
+    acceptAll: 'Aceptar todas',
+    rejectAll: 'Rechazar opcionales',
+    customize: 'Personalizar',
+    save: 'Guardar preferencias',
+  },
+  categories: {
+    necessary: {
+      title: 'Esenciales',
+      description: 'Imprescindibles para iniciar sesión, guardar idioma y mantener la seguridad.',
+    },
+    analytics: {
+      title: 'Analítica',
+      description: 'Nos ayuda a mejorar el mapa y las rutas con datos de uso agregados.',
+    },
+    marketing: {
+      title: 'Marketing',
+      description: 'Permite mostrar campañas, afiliados y colaboraciones relevantes.',
+    },
+  },
+  preferencesTitle: 'Preferencias opcionales',
+  preferencesDescription: 'Activa solo lo que necesites. Puedes actualizar tu decisión en cualquier momento.',
+  analyticsLabel: 'Permitir analítica anónima',
+  marketingLabel: 'Permitir cookies de marketing',
+  savedMessage: 'Tus preferencias se han guardado.',
+};
+
+const mergeCookieConsent = (overrides?: DeepPartial<CookieConsentTranslations>) =>
+  mergeObject(baseCookieConsent, overrides);
 
 export const TRANSLATIONS: Record<LanguageCode, Translation> = {
   gl: {
@@ -759,12 +882,6 @@ export const TRANSLATIONS: Record<LanguageCode, Translation> = {
         ],
       },
     }),
-    home: mergeHome({
-      podcastPlayer: {
-        ariaLabel: 'Abrir reproductor de podcasts',
-        title: 'Podcasts Pet Friendly',
-      },
-    }),
     pages: mergePages({
       blog: {
         title: 'Contido que posiciona e converte',
@@ -847,6 +964,57 @@ export const TRANSLATIONS: Record<LanguageCode, Translation> = {
         primaryCta: 'Solicitar verificación',
         secondaryCta: 'Descargar dossier →',
       },
+    }),
+    travelerStories: mergeTravelerStories(),
+    podcastWidget: mergePodcastWidget({
+      subtitle: 'Audio curado para viaxar co teu can',
+      accessibilityHint: 'Panel lateral accesible con teclado e lector de pantalla.',
+      searchLabel: 'Busca por temática ou podcast',
+      searchPlaceholder: 'educación, benestar, transporte...',
+      emptyState: 'Non hai podcasts para este filtro. Proba cun termo diferente.',
+      embedTitle: 'Escoita sen saír da páxina',
+      player: {
+        heading: 'Mini reprodutor accesible',
+        play: 'Reproducir episodio',
+        pause: 'Pausar episodio',
+        progressLabel: 'Progreso do episodio',
+        nowPlaying: 'Reproducindo',
+      },
+      closeLabel: 'Pechar panel de podcasts',
+      legalReminder:
+        'Lembra revisar a normativa local e as políticas pet friendly antes de viaxar.',
+    }),
+    cookieConsent: mergeCookieConsent({
+      title: 'Coidamos da túa privacidade',
+      description:
+        'Empregamos cookies propias e de terceiros para garantir o funcionamento da web, medir o uso e ofrecer contido pet friendly relevante.',
+      learnMore: 'Ver guía legal e de cookies',
+      manageLabel: 'Xestionar cookies',
+      buttons: {
+        acceptAll: 'Aceptar todas',
+        rejectAll: 'Rexeitar opcionais',
+        customize: 'Personalizar',
+        save: 'Gardar preferencias',
+      },
+      categories: {
+        necessary: {
+          title: 'Esenciais',
+          description: 'Necesarias para iniciar sesión, gardar o idioma e manter a seguridade.',
+        },
+        analytics: {
+          title: 'Analítica',
+          description: 'Axúdannos a mellorar mapas e rutas con datos agregados.',
+        },
+        marketing: {
+          title: 'Marketing',
+          description: 'Permite mostrar campañas, afiliacións e contido relevante.',
+        },
+      },
+      preferencesTitle: 'Preferencias opcionais',
+      preferencesDescription: 'Activa só o que precises. Podes cambialo cando queiras.',
+      analyticsLabel: 'Permitir analítica anónima',
+      marketingLabel: 'Permitir cookies de marketing',
+      savedMessage: 'Gardamos as túas preferencias de cookies.',
     }),
   },
   ast: {
@@ -959,12 +1127,6 @@ export const TRANSLATIONS: Record<LanguageCode, Translation> = {
         ],
       },
     }),
-    home: mergeHome({
-      podcastPlayer: {
-        ariaLabel: 'Abrir reproductor de podcasts',
-        title: 'Podcasts Pet Friendly',
-      },
-    }),
     pages: mergePages({
       blog: {
         title: 'Conteníu que posiciona y convierte',
@@ -1051,6 +1213,57 @@ export const TRANSLATIONS: Record<LanguageCode, Translation> = {
         secondaryCta: 'Descargar dossier →',
       },
     }),
+    travelerStories: mergeTravelerStories(),
+    podcastWidget: mergePodcastWidget({
+      subtitle: 'Audio curáu pa viaxaes col to perru',
+      accessibilityHint: 'Panel llateral accesible con tecláu y llector de pantalla.',
+      searchLabel: 'Gueta per temática o podcast',
+      searchPlaceholder: 'educación, bienestar, tresporte...',
+      emptyState: 'Nun hai podcasts con esti filtráu. Prueba con otru términu.',
+      embedTitle: 'Escucha ensin salir de la páxina',
+      player: {
+        heading: 'Mini reproductor accesible',
+        play: 'Reproducir episodiu',
+        pause: 'Pausar episodiu',
+        progressLabel: 'Progresu del episodiu',
+        nowPlaying: 'Reproduciendo',
+      },
+      closeLabel: 'Zarrar panel de podcasts',
+      legalReminder:
+        'Recuerda revisar la normativa llocal y les polítiques pet friendly enantes de viaxar.',
+    }),
+    cookieConsent: mergeCookieConsent({
+      title: 'Cuidamos la to privacidá',
+      description:
+        'Usamos cookies propies y de terceros pa que la web funcione correutamente, midamos l’usu y podamos ofrecer conteníu pet friendly relevante.',
+      learnMore: 'Ver guía llegal y de cookies',
+      manageLabel: 'Xestionar cookies',
+      buttons: {
+        acceptAll: 'Aceutar toles',
+        rejectAll: 'Refugar opcionales',
+        customize: 'Personalizar',
+        save: 'Guardar preferencies',
+      },
+      categories: {
+        necessary: {
+          title: 'Esenciales',
+          description: 'Precísense pa guardar l’idioma, iniciar sesión y caltener la seguridá.',
+        },
+        analytics: {
+          title: 'Analítica',
+          description: 'Axúdanos a meyorar mapas y rutes con datos agregaos.',
+        },
+        marketing: {
+          title: 'Marketing',
+          description: 'Permite amosar campañes, afiliaciones y conteníu d’interés.',
+        },
+      },
+      preferencesTitle: 'Preferencies opcionales',
+      preferencesDescription: 'Activa namái lo que necesites. Pue cambialo en cualisquier momentu.',
+      analyticsLabel: 'Permitir analítica anónima',
+      marketingLabel: 'Permitir cookies de marketing',
+      savedMessage: 'Guardamos les tos preferencies de cookies.',
+    }),
   },
   es: {
     nav: {
@@ -1060,17 +1273,20 @@ export const TRANSLATIONS: Record<LanguageCode, Translation> = {
       blog: 'Blog',
       addBusiness: 'Dar de alta mi negocio',
     },
-  ui: {
-    languageLabel: 'Idioma',
-  },
-  footer: {
-    description:
-      'Tu GPS de seguridad para viajar con perro por el norte de España. Negocios verificados, normativa legal y rutas creadas por un equipo que viaja con perro cada semana.',
-    communityLabel: 'Comunidad',
-    legal: 'Aviso legal | Política de privacidad | Cookies',
-  },
-  home: baseHome,
+    ui: {
+      languageLabel: 'Idioma',
+    },
+    footer: {
+      description:
+        'Tu GPS de seguridad para viajar con perro por el norte de España. Negocios verificados, normativa legal y rutas creadas por un equipo que viaja con perro cada semana.',
+      communityLabel: 'Comunidad',
+      legal: 'Aviso legal | Política de privacidad | Cookies',
+    },
+    home: baseHome,
     pages: mergePages(),
+    travelerStories: mergeTravelerStories(),
+    podcastWidget: mergePodcastWidget(),
+    cookieConsent: mergeCookieConsent(),
   },
   eu: {
     nav: {
@@ -1189,13 +1405,6 @@ export const TRANSLATIONS: Record<LanguageCode, Translation> = {
         ],
       },
     }),
-    home: mergeHome({
-      travelerStories: {
-        badge: 'Inspirazioa ematen duten istorioak',
-        title: 'Maskotekin bidaia egiten dutenentzako istorioak',
-        description: 'Ezagutu iparraldeko zain bidaien esperientzia autentikoak zure maskotarekin',
-      },
-    }),
     pages: mergePages({
       blog: {
         badge: 'Bloga',
@@ -1279,6 +1488,61 @@ export const TRANSLATIONS: Record<LanguageCode, Translation> = {
         primaryCta: 'Balidazioa eskatu',
         secondaryCta: 'Dossierra deskargatu →',
       },
+    }),
+    travelerStories: mergeTravelerStories({
+      badge: 'Inspirazioa ematen duten istorioak',
+      title: 'Maskotekin bidaia egiten dutenentzako istorioak',
+      description: 'Ezagutu iparraldeko zain bidaien esperientzia autentikoak zure maskotarekin',
+    }),
+    podcastWidget: mergePodcastWidget({
+      subtitle: 'Audio kuratua zure txakurrarekin bidaiatzeko',
+      accessibilityHint: 'Teklatu eta irakurlearekin bateragarria den alboko panela.',
+      searchLabel: 'Bilatu gaien edo podcasten arabera',
+      searchPlaceholder: 'hezkuntza, ongizatea, garraioa...',
+      emptyState: 'Ez dago podcastik iragazki honekin. Saiatu beste hitz batekin.',
+      embedTitle: 'Entzun orria utzi gabe',
+      player: {
+        heading: 'Erreproduzitzaile irisgarria',
+        play: 'Episodioa erreproduzitu',
+        pause: 'Episodioa pausatu',
+        progressLabel: 'Episodioaren aurrerapena',
+        nowPlaying: 'Erreproduzitzen',
+      },
+      closeLabel: 'Itxi podcast panela',
+      legalReminder:
+        'Abiatu aurretik berrikusi tokiko araudia eta pet friendly politikak.',
+    }),
+    cookieConsent: mergeCookieConsent({
+      title: 'Zure pribatutasuna zaintzen dugu',
+      description:
+        'Cookiak erabiltzen ditugu webgunea behar bezala ibiltzeko, erabilera neurtzeko eta pet friendly edukirik garrantzitsuena eskaintzeko.',
+      learnMore: 'Ikusi lege eta cookie gida',
+      manageLabel: 'Kudeatu cookieak',
+      buttons: {
+        acceptAll: 'Onartu guztiak',
+        rejectAll: 'Ukatu aukerakoak',
+        customize: 'Pertsonalizatu',
+        save: 'Gorde lehentasunak',
+      },
+      categories: {
+        necessary: {
+          title: 'Beharrezkoak',
+          description: 'Saioa hasi, hizkuntza gordetzeko eta segurtasuna bermatzeko beharrezkoak.',
+        },
+        analytics: {
+          title: 'Analitika',
+          description: 'Mapa eta ibilbideak hobetzeko datu agregatuak eskaintzen dizkigu.',
+        },
+        marketing: {
+          title: 'Marketinga',
+          description: 'Kanpainak, afiliatuak eta kolaborazio garrantzitsuak erakusteko balio du.',
+        },
+      },
+      preferencesTitle: 'Aukerako lehentasunak',
+      preferencesDescription: 'Behar duzuna soilik aktibatu; edozein unetan eguneratu dezakezu.',
+      analyticsLabel: 'Baimendu analitika anonimoa',
+      marketingLabel: 'Baimendu marketin cookieak',
+      savedMessage: 'Cookie lehentasunak gorde dira.',
     }),
   },
   fr: {
@@ -1403,13 +1667,6 @@ export const TRANSLATIONS: Record<LanguageCode, Translation> = {
         ],
       },
     }),
-    home: mergeHome({
-      travelerStories: {
-        badge: 'Histoires qui inspirent',
-        title: 'Histoires de voyageurs avec animaux de compagnie',
-        description: 'Découvrez des expériences authentiques de voyageurs avec leurs animaux dans le nord de l\'Espagne',
-      },
-    }),
     pages: mergePages({
       blog: {
         badge: 'Blog',
@@ -1496,6 +1753,61 @@ export const TRANSLATIONS: Record<LanguageCode, Translation> = {
         primaryCta: 'Demander la vérification',
         secondaryCta: 'Télécharger le dossier →',
       },
+    }),
+    travelerStories: mergeTravelerStories({
+      badge: 'Histoires qui inspirent',
+      title: 'Histoires de voyageurs avec animaux de compagnie',
+      description: 'Découvrez des expériences authentiques de voyageurs avec leurs animaux dans le nord de l\'Espagne',
+    }),
+    podcastWidget: mergePodcastWidget({
+      subtitle: 'Audio sélectionné pour voyager avec votre compagnon',
+      accessibilityHint: 'Panneau latéral compatible clavier et lecteurs d’écran.',
+      searchLabel: 'Rechercher par thème ou podcast',
+      searchPlaceholder: 'éducation, bien-être, transport...',
+      emptyState: 'Aucun podcast pour ce filtre. Essayez un autre mot-clé.',
+      embedTitle: 'Écouter sans quitter la page',
+      player: {
+        heading: 'Mini lecteur accessible',
+        play: 'Lire l’épisode',
+        pause: 'Mettre l’épisode en pause',
+        progressLabel: 'Progression de l’épisode',
+        nowPlaying: 'Lecture en cours',
+      },
+      closeLabel: 'Fermer le panneau podcasts',
+      legalReminder:
+        'Vérifiez la réglementation locale et les politiques pet friendly avant chaque voyage.',
+    }),
+    cookieConsent: mergeCookieConsent({
+      title: 'Nous protégeons votre vie privée',
+      description:
+        'Nous utilisons des cookies internes et tiers pour assurer le bon fonctionnement du site, mesurer l’audience et proposer du contenu pet friendly pertinent.',
+      learnMore: 'Consulter le guide légal et cookies',
+      manageLabel: 'Gérer les cookies',
+      buttons: {
+        acceptAll: 'Tout accepter',
+        rejectAll: 'Refuser les optionnels',
+        customize: 'Personnaliser',
+        save: 'Enregistrer mes choix',
+      },
+      categories: {
+        necessary: {
+          title: 'Essentiels',
+          description: 'Indispensables pour la sécurité, la langue et la session.',
+        },
+        analytics: {
+          title: 'Analytique',
+          description: 'Nous aide à améliorer cartes et itinéraires avec des données agrégées.',
+        },
+        marketing: {
+          title: 'Marketing',
+          description: 'Permet d’afficher des campagnes, affiliations et partenaires adaptés.',
+        },
+      },
+      preferencesTitle: 'Préférences optionnelles',
+      preferencesDescription: 'Activez uniquement ce dont vous avez besoin, modifiable à tout moment.',
+      analyticsLabel: 'Autoriser l’analytique anonyme',
+      marketingLabel: 'Autoriser les cookies marketing',
+      savedMessage: 'Vos préférences cookies ont été enregistrées.',
     }),
   },
   en: {
@@ -1693,12 +2005,6 @@ export const TRANSLATIONS: Record<LanguageCode, Translation> = {
         ],
       },
     }),
-    home: mergeHome({
-      podcastPlayer: {
-        ariaLabel: 'Open podcast player',
-        title: 'Pet Friendly Podcasts',
-      },
-    }),
     pages: mergePages({
       blog: {
         badge: 'Blog',
@@ -1785,6 +2091,61 @@ export const TRANSLATIONS: Record<LanguageCode, Translation> = {
         primaryCta: 'Request verification',
         secondaryCta: 'Download deck →',
       },
+    }),
+    travelerStories: mergeTravelerStories({
+      badge: 'Stories that inspire',
+      title: 'Stories from pet friendly travelers',
+      description: 'Real experiences from northern Spain families who explore with their dogs.',
+    }),
+    podcastWidget: mergePodcastWidget({
+      subtitle: 'Curated audio picks to plan dog friendly trips',
+      accessibilityHint: 'Side panel accessible with keyboard and screen readers.',
+      searchLabel: 'Search by topic or podcast',
+      searchPlaceholder: 'training, wellbeing, transport...',
+      emptyState: 'No podcasts match this filter. Try a different keyword.',
+      embedTitle: 'Listen without leaving the page',
+      player: {
+        heading: 'Accessible mini player',
+        play: 'Play episode',
+        pause: 'Pause episode',
+        progressLabel: 'Episode progress',
+        nowPlaying: 'Now playing',
+      },
+      closeLabel: 'Close podcast panel',
+      legalReminder:
+        'Always review local regulations and pet friendly policies before travelling.',
+    }),
+    cookieConsent: mergeCookieConsent({
+      title: 'We care about your privacy',
+      description:
+        'We use first and third-party cookies to keep the site running, understand traffic and surface relevant pet friendly content.',
+      learnMore: 'Read the legal & cookies guide',
+      manageLabel: 'Manage cookies',
+      buttons: {
+        acceptAll: 'Accept all',
+        rejectAll: 'Reject optional',
+        customize: 'Customize',
+        save: 'Save preferences',
+      },
+      categories: {
+        necessary: {
+          title: 'Essential',
+          description: 'Required for security, language settings and session continuity.',
+        },
+        analytics: {
+          title: 'Analytics',
+          description: 'Helps us improve the map and routes with aggregated data.',
+        },
+        marketing: {
+          title: 'Marketing',
+          description: 'Enables campaigns, affiliates and helpful partners.',
+        },
+      },
+      preferencesTitle: 'Optional preferences',
+      preferencesDescription: 'Enable only what you need. You can revisit this at any time.',
+      analyticsLabel: 'Allow anonymous analytics',
+      marketingLabel: 'Allow marketing cookies',
+      savedMessage: 'Your cookie preferences have been saved.',
     }),
   },
 };

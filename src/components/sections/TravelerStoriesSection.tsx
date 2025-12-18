@@ -22,9 +22,7 @@ type Story = {
 export default function TravelerStoriesSection() {
   const [activeStory, setActiveStory] = useState(0);
   const {
-    translations: {
-      home: { travelerStories },
-    },
+    translations: { travelerStories },
   } = useLanguage();
 
   // Sample stories data - in a real implementation this would come from translations or an API
@@ -98,7 +96,7 @@ export default function TravelerStoriesSection() {
 
               <div>
                 <h4 className="font-semibold text-primary-600">El Detalle Emocional Clave:</h4>
-                <p className="text-neutral-700 italic">"{currentStory.emotionalDetail}"</p>
+                <p className="text-neutral-700 italic">&ldquo;{currentStory.emotionalDetail}&rdquo;</p>
               </div>
 
               <div>
