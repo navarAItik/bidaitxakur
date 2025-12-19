@@ -1,8 +1,10 @@
 node_modules
 .next
+.git
 dist
 npm-debug.log*
 Dockerfile.local
+*.tar
 docker-compose*.yaml
 docker-compose*.yml
 .env
