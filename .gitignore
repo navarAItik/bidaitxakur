@@ -1,2 +1,72 @@
-node_modules
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnp.*
+.pnp.js
+
+# Testing
+coverage/
+.nyc_output/
+coverage-final.json
+
+# Production
+build/
+dist/
+out/
+
+# Environment
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.backend
+.env.frontend
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Backend
+apps/backend/__pycache__/
+apps/backend/*.pyc
+apps/backend/*.pyo
+apps/backend/*~
+apps/backend/.pytest_cache/
+apps/backend/.coverage
+apps/backend/coverage/
+apps/backend/.tox/
+apps/backend/.venv/
+apps/backend/venv/
+apps/backend/env/
+apps/backend/.env
+apps/backend/db.sqlite3
+apps/backend/.DS_Store
+
+# Frontend
+apps/frontend/node_modules/
+apps/frontend/.next/
+apps/frontend/out/
+apps/frontend/.env
+apps/frontend/.env.local
+apps/frontend/.env.development.local
+apps/frontend/.env.test.local
+apps/frontend/.env.production.local
+apps/frontend/npm-debug.log*
+apps/frontend/yarn-debug.log*
+apps/frontend/yarn-error.log*
+
+# Archives
+*.tar
+*.tar.gz
+*.zip
 web-next.tar

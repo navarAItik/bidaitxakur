@@ -1,16 +1,29 @@
 {
-  "name": "bidaitxakur",
+  "name": "bidaitxakur-monorepo",
   "version": "1.0.0",
-  "description": "A simple Node.js application",
-  "main": "index.js",
+  "description": "Monorepo for bidaitxakur platform - a pet-friendly travel guide",
+  "private": true,
   "scripts": {
-    "start": "node index.js"
+    "dev": "docker-compose up",
+    "build": "docker-compose build",
+    "start": "docker-compose up -d",
+    "stop": "docker-compose down",
+    "logs": "docker-compose logs -f",
+    "backend-dev": "docker-compose run --service-ports backend",
+    "frontend-dev": "cd apps/frontend && npm run dev"
   },
-  "dependencies": {
-    "express": "^4.17.1"
-  },
-  "devDependencies": {},
-  "keywords": [],
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "services/*"
+  ],
+  "keywords": [
+    "pet-friendly",
+    "travel",
+    "guide",
+    "monorepo"
+  ],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {}
 }

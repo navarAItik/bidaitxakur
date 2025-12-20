@@ -1,7 +1,9 @@
-FROM node:14
-WORKDIR /usr/src/app
-COPY package*.json ./
-RUN npm install
-COPY . .
+# Este Dockerfile es para el servicio de proxy/inicialización del monorepo
+FROM nginx:alpine
+
+# Copiar configuración de nginx para servir como proxy reverso
+COPY docker/nginx.conf /etc/nginx/nginx.conf
+
 EXPOSE 3000
-CMD [ "node", "index.js" ]
+
+CMD ["nginx", "-g", "daemon off;"]
