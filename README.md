@@ -27,8 +27,11 @@ Este es un monorepo que contiene:
 
 2. **Configurar variables de entorno:**
    ```bash
+   # Crear archivos .env para backend y frontend
    # En apps/backend/
    cp .env.example .env
+   # En apps/frontend/
+   cp .env.example .env.local
    # Configurar las variables según sea necesario
    ```
 
@@ -40,6 +43,15 @@ Este es un monorepo que contiene:
 Los servicios estarán disponibles en:
 - Frontend: http://localhost:3000
 - Backend API: http://localhost:3000/api (a través del proxy) o http://localhost:8000 directamente
+
+### Variables de Entorno
+
+Todas las claves de API, tokens y credenciales sensibles deben mantenerse en archivos `.env` que están excluidos del control de versiones:
+
+- Backend: `apps/backend/.env`
+- Frontend: `apps/frontend/.env.local`
+
+**Nunca** commitear claves API, tokens u otros datos sensibles en el repositorio.
 
 ### Scripts útiles
 
@@ -77,6 +89,21 @@ bidaitxakur/
 └── docs/                  # Documentación
 ```
 
+## Seguridad
+
+### Gestión de credenciales
+
+- Todas las credenciales sensibles se almacenan en archivos `.env`
+- Estos archivos están excluidos del control de versiones mediante `.gitignore`
+- Se proporcionan archivos `.env.example` con plantillas para configuración
+- Nunca commitear claves API, tokens de acceso ni contraseñas
+
+### Variables de entorno
+
+- Backend: Variables de Django, base de datos, claves de API externas
+- Frontend: Variables públicas de Next.js, claves de API públicas (si las hay)
+- Docker: Variables para configuración de contenedores
+
 ## Futuras Funcionalidades
 
 - Integración de videos y podcasts
@@ -88,3 +115,5 @@ bidaitxakur/
 ## Contribuciones
 
 Las contribuciones son bienvenidas. Por favor, abre un issue para discutir cambios antes de enviar pull requests.
+
+**Importante**: No incluyas claves API, tokens u otros datos sensibles en tus contribuciones.
