@@ -1,0 +1,25 @@
+<svg width="640" height="360" viewBox="0 0 640 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Dogs north landscape">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#dff6ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f0fdf4;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="640" height="360" fill="url(#grad)" rx="24"/>
+  <circle cx="520" cy="80" r="40" fill="#fde68a" opacity="0.6" />
+  <path d="M0 260 Q160 200 320 260 T640 260 L640 360 L0 360 Z" fill="#bbf7d0"/>
+  <path d="M0 220 Q160 160 320 220 T640 220 L640 260 L0 260 Z" fill="#86efac" opacity="0.7"/>
+  <path d="M0 200 Q160 140 320 200 T640 200 L640 220 L0 220 Z" fill="#5eead4" opacity="0.5"/>
+  <g transform="translate(120,200)">
+    <ellipse cx="0" cy="60" rx="70" ry="20" fill="#0f172a" opacity="0.15"/>
+    <path d="M-40 40 Q-45 10 -20 5 Q-10 -20 20 -10 Q50 -5 50 25 Q80 30 70 50 Q60 65 30 50 Q20 70 -10 70 Q-20 55 -40 40 Z" fill="#fcd34d" stroke="#0f172a" stroke-width="2"/>
+  </g>
+  <g transform="translate(300,180)">
+    <ellipse cx="0" cy="90" rx="80" ry="22" fill="#0f172a" opacity="0.15"/>
+    <path d="M-60 40 Q-75 0 -40 -20 Q-10 -30 30 -10 Q70 0 70 40 Q100 50 80 70 Q65 90 30 70 Q0 90 -30 85 Q-55 65 -60 40 Z" fill="#93c5fd" stroke="#0f172a" stroke-width="2"/>
+  </g>
+  <g transform="translate(470,210)">
+    <ellipse cx="0" cy="70" rx="60" ry="16" fill="#0f172a" opacity="0.15"/>
+    <path d="M-30 20 Q-30 -10 -10 -20 Q20 -20 40 0 Q60 20 50 40 Q70 55 50 65 Q30 80 10 60 Q-10 70 -20 50 Q-40 40 -30 20 Z" fill="#f472b6" stroke="#0f172a" stroke-width="2"/>
+  </g>
+</svg>

@@ -1,0 +1,8 @@
+<svg width="240" height="70" viewBox="0 0 240 70" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Huellas del Norte footer logo">
+  <rect width="240" height="70" rx="14" fill="#020617"/>
+  <text x="20" y="38" font-family="'Arial', 'Helvetica', sans-serif" font-size="22" fill="#f8fafc" font-weight="600">Huellas del Norte</text>
+  <text x="20" y="58" font-family="'Arial', 'Helvetica', sans-serif" font-size="12" fill="#cbd5f5">Directorio pet-friendly del norte</text>
+  <circle cx="200" cy="22" r="8" fill="#38bdf8"/>
+  <circle cx="214" cy="30" r="5" fill="#38bdf8"/>
+  <circle cx="206" cy="40" r="4" fill="#38bdf8"/>
+</svg>

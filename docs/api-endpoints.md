@@ -6,7 +6,7 @@
 
 ## Autenticación
 - **Tipo**: Token-based (opcional para lectura)
-- **Header**: `Authorization: Token <token>` [TU_API_KEY_AQUI]-yEGFd7xHiUCS0psa9paC8kTDanhWxYz3mmyh2fDxlE2n756muYVHBIDT-4XwdR1I8oT3BlbkFJw4yn-CegIZL715faa3WgmCpj7zNcuD5Mz-vzVKpYp5ckc9pmFgIjydP6t2FjCHxNAarjXqIuAA
+- **Header**: `Authorization: Token <token>` [TU_API_KEY_AQUI]
 - **Registro/Login**: Implementar con Djoser o similar
 
 ## Endpoints Principales
