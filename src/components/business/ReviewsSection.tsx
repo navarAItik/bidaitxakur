@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import { useSession } from 'next-auth/react';
+import Link from 'next/link';
 import type { Business } from '@/types/business';
 
 interface ReviewsSectionProps {
@@ -9,6 +11,7 @@ interface ReviewsSectionProps {
 
 export default function ReviewsSection({ business }: ReviewsSectionProps) {
   const [expanded, setExpanded] = useState(false);
+  const { data: session } = useSession();
 
   return (
     <section className="rounded-3xl border border-slate-100 bg-white p-6 shadow-sm">
@@ -19,7 +22,13 @@ export default function ReviewsSection({ business }: ReviewsSectionProps) {
             {business.stats?.rating ?? '5.0'} · {business.stats?.reviews ?? 0} opiniones verificados
           </h2>
         </div>
-        <button className="text-sm font-semibold text-primary-600">Escribir reseña</button>
+        {session ? (
+          <button className="text-sm font-semibold text-primary-600">Escribir reseña</button>
+        ) : (
+          <Link href="/auth/signin" className="text-sm font-semibold text-primary-600">
+            Inicia sesión para escribir una reseña
+          </Link>
+        )}
       </div>
       <div className="mt-6 space-y-4 text-sm text-slate-600">
         <p>

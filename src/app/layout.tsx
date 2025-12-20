@@ -22,6 +22,7 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
+        <link href="https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.css" rel="stylesheet" />
       </head>
       <body className="bg-neutral-50 text-neutral-900 font-sans antialiased">
         <Providers>

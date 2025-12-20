@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
+import { useSession, signOut } from 'next-auth/react';
 import { NAV_LINKS, REGION_DATA } from '@/lib/constants';
 import { LANGUAGES } from '@/lib/i18n';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -11,12 +12,13 @@ export default function Header() {
   const [open, setOpen] = useState(false);
   const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
   const [regionMenuOpen, setRegionMenuOpen] = useState(false);
+  const { data: session } = useSession();
   const { language, setLanguage, translations } = useLanguage();
   const { nav, ui } = translations;
   const activeLanguageLabel = LANGUAGES.find((lang) => lang.code === language)?.label ?? language.toUpperCase();
 
   return (
-    <header className="sticky top-0 z-30 border-b border-neutral-200 bg-neutral-50/90 backdrop-blur" role="banner">
+    <header className="sticky top-0 z-30 border-b border-neutral-200 bg-white" role="banner">
       <div className="container-page flex items-center justify-between py-4">
         <Link href="/" className="flex items-center gap-2" aria-label="Ir a la página principal">
           <Image
@@ -95,10 +97,30 @@ export default function Header() {
             )}
           </div>
         </nav>
-        <div className="hidden lg:flex">
+        <div className="hidden lg:flex items-center gap-3">
+          {session ? (
+            <div className="flex items-center gap-3">
+              <span className="text-sm text-neutral-700">
+                Hola, {session.user?.name || session.user?.email}
+              </span>
+              <button
+                onClick={() => signOut()}
+                className="btn-secondary"
+              >
+                Cerrar Sesión
+              </button>
+            </div>
+          ) : (
+            <Link
+              href="/auth/signin"
+              className="btn-secondary"
+            >
+              Iniciar Sesión
+            </Link>
+          )}
           <Link
             href="/alta-negocio"
-            className="btn-primary"
+            className="btn-accent"
           >
             {nav.addBusiness}
           </Link>
@@ -125,6 +147,26 @@ export default function Header() {
                 {region.name}
               </Link>
             ))}
+            {session ? (
+              <div className="flex items-center justify-between rounded-lg border border-neutral-200 p-3">
+                <span className="text-sm text-neutral-700">
+                  Hola, {session.user?.name || session.user?.email}
+                </span>
+                <button
+                  onClick={() => signOut()}
+                  className="btn-secondary text-sm"
+                >
+                  Cerrar Sesión
+                </button>
+              </div>
+            ) : (
+              <Link
+                href="/auth/signin"
+                className="block rounded-lg border border-neutral-200 p-3 text-center hover:bg-neutral-50 transition-colors"
+              >
+                Iniciar Sesión
+              </Link>
+            )}
             <div className="rounded-lg border border-neutral-200 p-3">
               <p className="text-xs uppercase tracking-wide text-neutral-500">{ui.languageLabel}</p>
               <div className="mt-2 flex gap-2">

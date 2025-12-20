@@ -541,6 +541,10 @@ body {
   @apply bg-white text-neutral-800 font-semibold py-3 px-6 rounded-xl border border-neutral-300 shadow-soft shadow-hover hover:bg-neutral-50 transition-all duration-200;
 }
 
+.btn-accent {
+  @apply bg-accent-400 text-neutral-900 font-semibold py-3 px-6 rounded-xl shadow-soft shadow-hover hover:bg-accent-500 transition-all duration-200;
+}
+
 .animate-float {
   animation: float 6s ease-in-out infinite;
 }

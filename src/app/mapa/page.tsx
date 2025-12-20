@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react';
 import clsx from 'clsx';
 import Link from 'next/link';
 import ServiceList from '@/components/map/ServiceList';
+import MapContainer from '@/components/map/MapContainer';
 import { PET_SERVICES } from '@/lib/petServices';
 import { REGION_DATA } from '@/lib/constants';
 
@@ -157,44 +158,20 @@ export default function MapPage() {
         <div className="container-page space-y-6">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
-              <p className="text-sm uppercase tracking-wide text-primary-500">Embed actual</p>
-              <h2 className="text-2xl font-semibold text-slate-900">Google My Maps / provisional</h2>
+              <p className="text-sm uppercase tracking-wide text-primary-500">Mapa interactivo</p>
+              <h2 className="text-2xl font-semibold text-slate-900">Visor propio con Mapbox</h2>
               <p className="text-sm text-slate-600">
-                Reemplaza el enlace cuando el mapa definitivo esté listo. Hasta entonces, mostramos un viewport base
-                para mantener la estructura.
+                Explora los puntos de interés pet-friendly en el norte de España con nuestro mapa interactivo.
               </p>
             </div>
-            <Link
-              href="https://www.google.com/maps/d/"
-              className="text-sm font-semibold text-primary-600 underline underline-offset-4"
-              target="_blank"
-            >
-              Abrir My Maps ↗
-            </Link>
           </div>
           <div className="relative overflow-hidden rounded-4xl border border-slate-200 bg-slate-900/5">
             {prefs.lowData ? (
               <div className="flex h-[70vh] items-center justify-center p-10 text-center text-sm text-slate-600">
-                El modo bajo datos oculta el iframe externo para reducir el consumo. Desactívalo para cargar el mapa embebido.
+                El modo bajo datos oculta el mapa para reducir el consumo. Desactívalo para cargar el mapa interactivo.
               </div>
             ) : (
-              <>
-                <div className="absolute inset-0 flex items-center justify-center text-center text-slate-500">
-                  <div>
-                    <p className="text-lg font-semibold text-slate-600">Iframe de My Maps pendiente</p>
-                    <p className="text-sm">
-                      Coloca aquí el iframe generado por Google My Maps o SrPerro cuando esté disponible.
-                    </p>
-                  </div>
-                </div>
-                <iframe
-                  title="Mapa pet friendly provisional"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2449996.7022620817!2d-9.076772516002857!3d43.14284659869201!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd3187c7ba5f0b3f%3A0x2c7f2c7b0df8a2b1!2sNorte%20de%20Espa%C3%B1a!5e0!3m2!1ses!2ses!4v1700000000000!5m2!1ses!2ses"
-                  className="h-[70vh] w-full border-0"
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                />
-              </>
+              <MapContainer latitude={43.14284659869201} longitude={-9.076772516002857} />
             )}
           </div>
         </div>

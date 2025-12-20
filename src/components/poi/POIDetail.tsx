@@ -1,6 +1,7 @@
 import type { POI } from '@/types/poi';
 import BusinessGallery from '../business/BusinessGallery';
 import ReviewsSection from '../business/ReviewsSection';
+import { useReviews } from '@/hooks/useReviews';
 
 interface POIDetailProps {
   poi: POI;
