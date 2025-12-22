@@ -1,0 +1,14 @@
+# Development-specific dependencies
+
+# Code Formatting
+black==24.4.2
+
+# Linting
+ruff==0.1.6
+
+# Testing
+pytest==8.0.0
+pytest-django==4.8.0
+
+# Dependency Management
+pip-tools==7.4.1
