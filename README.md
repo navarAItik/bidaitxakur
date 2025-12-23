@@ -1,221 +1,138 @@
-# 🐾 Huellas del Norte – Plataforma Web (Frontend Next.js + Backend Django)
+# BidaiTxakur 🚀
 
-Este repositorio contiene la aplicación web Huellas del Norte con:
-- ⚛️ Frontend: Next.js (React + TypeScript, Tailwind)
-- 🐍 Backend: Django REST Framework
-- ☸️ Despliegue objetivo: Kubernetes (k3s en OCI Always Free) con Ingress + cert-manager
+[![Repo](https://img.shields.io/badge/repo-navarAItik/bidaitxakur-blue)](https://github.com/navarAItik/bidaitxakur) ![Made with ❤️](https://img.shields.io/badge/made%20with-%E2%9D%A4-red)
 
-📌 Estado verificado (producción k3s)
-- ✅ Frontend en ns demo: deployment bidaitxakur Available=1. NextAuth configurado vía Secret.
-- 🔐 Ingress y TLS: IngressClass nginx (k8s.io/ingress-nginx) y ClusterIssuer letsencrypt-prod Ready=True.
-- 🚧 Backend: código presente (backend/ y apps/backend/) pero no desplegado; se identificó un fallo previo de InvalidImageName por referencia de imagen inválida (mayúsculas/<>). 
+Descripción
 
-🎯 Objetivos de este README
-- 🧪 Explicar cómo ejecutar en local (desarrollo).
-- 🏗️ Explicar cómo construir y publicar imágenes multi-arquitectura (ARM64/AMD64) por digest.
-- ☸️ Explicar cómo desplegar en k3s (secrets, config, imagen por digest, migraciones).
-- 🩺 Explicar cómo diagnosticar problemas comunes (InvalidImageName, ImagePullBackOff, exec format error).
+BidaiTxakur es un proyecto que (aquí indica brevemente qué hace la app o librería). Está pensado para (público objetivo) y facilita (beneficio principal).
 
----
+Demo
 
-## 🗂️ 1. Estructura del repositorio
+Añade aquí una captura o GIF que muestre la app en acción. Por ejemplo:
 
-- 🖥️ frontend/ o src/: código del frontend Next.js (ver package.json, next.config.js)
-- 🐘 backend/ y apps/backend/: código del backend Django (petfriendly_backend, api)
-- 🐳 docker/: Dockerfiles de backend/frontend y nginx.conf
-- 📚 docs/: documentación técnica (infra, API, arquitectura)
-- 🛠️ scripts/: utilidades (diagnóstico, extracción de backend, etc.)
+![demo](./assets/demo.gif)
 
-💡 Notas
-- Existen dos rutas de backend (backend/ y apps/backend/) con settings.py equivalente. Elegir una como fuente de build antes de producción.
+Si no tienes imágenes listas, borra esta sección o sube las imágenes a `assets/`.
 
----
+Características
 
-## 📦 2. Requisitos (desarrollo local)
+- ✅ Descripción clara y breve de la funcionalidad principal 1.
+- ✅ Funcionalidad 2 explicada en una línea.
+- ✅ Integración o ventaja importante.
 
-- 🔧 Node.js 18+ y PNPM/NPM/Yarn (para frontend)
-- 🐍 Python 3.10+ y pip (para backend) o Docker (recomendado)
-- 🐳 Docker con buildx (para build multi-arch)
+Por qué usarlo
 
----
+- Ideal para: casos de uso concretos (ej. prototipos, herramientas internas, aprendizaje).
+- Beneficio directo: ahorro de tiempo, mayor fiabilidad, fácil integración, etc.
 
-## ⚙️ 3. Desarrollo local (rápido)
+Requisitos
 
-Frontend (Next.js):
-1) 📄 Copiar variables de ejemplo: `cp frontend/.env.example frontend/.env` (ajustar si procede)
-2) 📦 Instalar dependencias: `cd frontend && npm install`
-3) 🏃 Ejecutar en dev: `npm run dev`
+- Node.js >= 16 (ajusta según tu proyecto)
+- Git
 
-Backend (Django):
-1) 🔑 Variables: copiar `backend/.env.example` a `.env` y ajustar si existe; si no, usar variables de entorno.
-2) 📦 Instalar: `cd backend && pip install -r requirements.txt`
-3) 🗄️ Base de datos: por defecto usa SQLite si no hay `DATABASE_URL`.
-4) 🔄 Migraciones y runserver:
-   - `python manage.py migrate`
-   - `python manage.py runserver 0.0.0.0:8000`
+Instalación rápida
 
-Compose (opcional si existe docker-compose.yml):
-- 🐳 `docker compose up --build`
+```bash
+# clonar el repositorio
+git clone https://github.com/navarAItik/bidaitxakur.git
+cd bidaitxakur
 
----
-
-## 🏗️ 4. Build y publicación de la imagen del backend (multi-arch y por digest)
-
-Los nodos en OCI suelen ser ARM64. Construir al menos `linux/arm64` o multi-arch para evitar ⚠️ `exec format error`.
-
-Ejemplo usando GHCR (GitHub Container Registry):
-
-1) 🔐 Variables y login GHCR:
-```
-cd backend  # o apps/backend si se usa esa ruta
-IMAGE_BASE=ghcr.io/org/bidaitxakur-backend
-TAG=2025-12-22
-IMAGE="${IMAGE_BASE}:${TAG}"
-echo "<GHCR_PAT_WITH_WRITE>" | docker login ghcr.io -u "<GHCR_USER>" --password-stdin
+# instalar dependencias (elige npm o yarn)
+npm install
+# o
+yarn
 ```
 
-2) 🧰 Buildx multi-arch y push:
-```
-docker buildx create --use || docker buildx use default
+Modo desarrollo
 
-docker buildx build \
-  --platform linux/arm64,linux/amd64 \
-  -t "${IMAGE}" \
-  --push \
-  .
+```bash
+npm run dev
+# o
+yarn dev
 ```
 
-3) 🔎 Obtener digest (manifest list) para despliegue inmutable:
-```
-docker buildx imagetools inspect "${IMAGE}" | sed -n '1,80p'
-# Usar el valor de "Digest:" superior:
-# ghcr.io/org/bidaitxakur-backend@sha256:<digest>
-```
+Comandos útiles
 
-Entregar para despliegue:
-- 🏷️ Imagen tag: `ghcr.io/org/bidaitxakur-backend:2025-12-22`
-- 🧬 Digest: `ghcr.io/org/bidaitxakur-backend@sha256:<digest>`
-- 🔒 ¿Privado?: Sí/No. Si Sí, token con solo `read:packages` para k8s.
+- Construir para producción:
 
----
-
-## ☸️ 5. Despliegue en k3s/k8s (producción)
-
-Prerequisitos confirmados en el cluster:
-- 🌐 IngressClass nginx activo.
-- 🔐 cert-manager y ClusterIssuer letsencrypt-prod en Ready=True.
-- 🧩 Namespace de trabajo (ej. demo).
-
-5.1 Frontend – NextAuth
-- 🔑 Secret (ya aplicado en producción, ejemplo reproducible):
-```
-kubectl create secret generic nextauth-secrets -n demo \
-  --from-literal=NEXTAUTH_SECRET="$(openssl rand -base64 48)" \
-  --from-literal=AUTH_SECRET="$(openssl rand -base64 48)" \
-  --from-literal=NEXTAUTH_URL="https://huellasdelnorte.com" \
-  --from-literal=NEXTAUTH_TRUST_HOST="true" \
-  --dry-run=client -o yaml | kubectl apply -f -
-
-kubectl -n demo set env deploy/bidaitxakur --from=secret/nextauth-secrets
-kubectl -n demo rollout restart deploy/bidaitxakur
-kubectl -n demo rollout status deploy/bidaitxakur --timeout=180s
+```bash
+npm run build
 ```
 
-5.2 Backend – variables y secretos
-- 🔑 Secret (producción):
-```
-kubectl -n demo create secret generic backend-secrets \
-  --from-literal=DJANGO_SECRET_KEY="$(openssl rand -base64 48)" \
-  --from-literal=DATABASE_URL="postgres://USER:PASS@HOST:5432/DB?sslmode=require" \
-  --dry-run=client -o yaml | kubectl apply -f -
-```
-- 🗂️ ConfigMap:
-```
-kubectl -n demo create configmap backend-config \
-  --from-literal=DJANGO_DEBUG="False" \
-  --from-literal=DJANGO_ALLOWED_HOSTS="huellasdelnorte.com,.huellasdelnorte.com" \
-  --dry-run=client -o yaml | kubectl apply -f -
+- Ejecutar tests:
+
+```bash
+npm test
 ```
 
-5.3 Backend – imagePullSecret (si GHCR privado)
-```
-kubectl -n demo create secret docker-registry ghcr-creds \
-  --docker-server=ghcr.io \
-  --docker-username="<GHCR_USER>" \
-  --docker-password="<GHCR_PAT_READ_ONLY>" \
-  --docker-email="devnull@example.com"
+Uso básico
 
-# Asociar al Deployment (solo una vez):
-kubectl -n demo patch deploy backend --type='json' \
-  -p='[{"op":"add","path":"/spec/template/spec/imagePullSecrets","value":[{"name":"ghcr-creds"}]}]'
+Explica aquí el flujo mínimo para usar el proyecto, por ejemplo:
+
+```bash
+# ejemplo de ejecución o de uso de la librería/CLI
+npx bidaitxakur --help
 ```
 
-5.4 Backend – actualizar imagen por digest y validar
-```
-CNAME=$(kubectl -n demo get deploy backend -o jsonpath='{.spec.template.spec.containers[0].name}')
-DIGEST="ghcr.io/org/bidaitxakur-backend@sha256:<digest>"
-kubectl -n demo set image deploy/backend "${CNAME}=${DIGEST}"
-kubectl -n demo rollout status deploy/backend --timeout=180s
-kubectl -n demo get pods -l app=backend -o wide
-```
+Configuración
 
-5.5 Migraciones (una vez el pod esté Running)
+Crea un archivo `.env` en la raíz con las variables necesarias. Ejemplo:
+
 ```
-POD=$(kubectl -n demo get pods -l app=backend --no-headers | awk '$3=="Running"{print $1; exit}')
-kubectl -n demo exec "$POD" -- python manage.py migrate
+API_KEY=tu_api_key_aqui
+NODE_ENV=development
 ```
 
----
+Estructura del proyecto
 
-## 🔧 6. Variables del backend (Django)
+- src/ — código fuente
+- public/ — archivos estáticos (opcional)
+- assets/ — imágenes y demos
+- tests/ — pruebas
+- README.md — documentación principal
 
-En petfriendly_backend/settings.py se usan variables:
-- 🔑 DJANGO_SECRET_KEY (obligatoria en producción)
-- 🐞 DJANGO_DEBUG ("False" en producción)
-- 🌐 DJANGO_ALLOWED_HOSTS (incluye huellasdelnorte.com y subdominios necesarios)
-- 🗄️ DATABASE_URL (PostgreSQL recomendado; si no existe, cae a SQLite para dev)
-- 🌍 CORS_ALLOW_ALL_ORIGINS=True por defecto: restringir en producción a dominios de la app
+(Adapta la lista a la estructura real del repositorio).
 
-REST Framework: permisos por defecto AllowAny (endurecer según necesidad).
+Contribuir
 
----
+¡Gracias por querer contribuir! Sigue estos pasos:
 
-## 🩺 7. Diagnóstico y problemas comunes
+1. Lee CODE_OF_CONDUCT.md y CONTRIBUTING.md si existen.
+2. Abre un issue para discutir cambios grandes.
+3. Crea PRs pequeños y enfocados con una descripción clara.
 
-InvalidImageName:
-- ❗ Causa: nombre con mayúsculas, con `<>`, con `https://` o variables sin expandir. Solución: referencia válida y minúscula `<registry>/<repo>:<tag>` o despliegue por digest `@sha256:...`.
+Plantilla breve para PRs:
 
-ImagePullBackOff / Unauthorized:
-- 🔒 Causa: imagen privada sin imagePullSecret o credenciales inválidas. Solución: crear secret docker-registry y asociarlo.
+- Qué cambia y por qué
+- Pasos para probar
+- Impacto esperado
 
-Exec format error:
-- 🧬 Causa: imagen amd64 ejecutando en nodo ARM64. Solución: publicar `linux/arm64` o multi-arch.
+Buenas prácticas recomendadas
 
-Verificación:
-```
-kubectl -n demo get deploy,pods,ingress -o wide
-kubectl -n demo describe pod <pod>
-kubectl -n demo logs <pod> --tail=200
-```
+- Añadir CI (GitHub Actions) para tests y lint.
+- Incluir un archivo LICENSE (si procede).
+- Mantener las PRs pequeñas y con pruebas.
 
----
+Seguridad
 
-## 🤝 8. Contribución y licencias
+Si encuentras una vulnerabilidad, por favor contacta por email o abre un issue privado explicando pasos para reproducirla y su severidad.
 
-- 🐛 Issues y PRs bienvenidos.
-- 📄 Licencia: MIT (ver archivo LICENSE si existe).
+Licencia
 
----
+Comprueba el archivo LICENSE en el repositorio. Si aún no existe, añade la licencia que prefieras (por ejemplo MIT).
 
-## 📊 9. Estado actual (resumen)
+Contacto
 
-- ✅ Frontend: OK en k3s (NextAuth configurado)
-- 🔐 Ingress/TLS: OK (nginx + cert-manager)
-- 🚧 Backend: pendiente imagen válida + variables (secret/config) + migraciones
+- Autor: navarAItik
+- Repo: https://github.com/navarAItik/bidaitxakur
+- Email: (opcional) tu-email@ejemplo.com
 
----
+Créditos
 
-## 📬 10. Contacto y soporte
+Menciona las librerías, recursos o personas que han ayudado en el proyecto.
 
-- 📦 Para publicar imagen del backend: enviar tag y digest (GHCR) y si es privado, confirmar tipo de auth y creación de imagePullSecret con lectura.
-- 🚀 Para despliegue de backend: una vez proporcionados digest y DB, aplicaré Deployment/Service e Ingress y ejecutaré migraciones.
+Notas finales
+
+- Mantén el README conciso en la parte superior y mueve documentación extensa a `/docs` si es necesario.
+- Añade capturas o GIFs para mejorar la primera impresión.
+- Actualiza los badges para que apunten a servicios reales (Actions, Codecov, etc.).
